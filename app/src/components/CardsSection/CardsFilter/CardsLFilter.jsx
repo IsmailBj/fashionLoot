@@ -5,7 +5,7 @@ import newIcon from "../../../assets/icons/new.svg"
 import premiumIcon from "../../../assets/icons/premium.svg"
 import searchIcon from "../../../assets/icons/search-icon.svg"
 
-const CardsList = () => {
+const CardsLFilter = () => {
 	const [selectedItem, setSelectedItem] = useState(null)
 
 	const handleItemClick = (index) => {
@@ -66,4 +66,4 @@ const CardsList = () => {
 	)
 }
 
-export default CardsList
+export default CardsLFilter

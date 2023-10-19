@@ -1,13 +1,15 @@
 import './App.css';
 import Header from './components/Header/Header';
 import BannerSponsor from './components/BannerSponsors/BannerSponsor';
-import CardsList from './components/CardsContainer/CardsList/CardsList';
+import CardsContainer from './components/CardsSection/CardsContainer/CardsContainer';
+import CaseOpening from './assets/game/CaseOpening';
 function App() {
   return (
     <div className="App">
       <Header />
       <BannerSponsor />
-      <CardsList />
+      <CardsContainer />
+      <CaseOpening></CaseOpening>
     </div>
   );
 }
