@@ -3,11 +3,12 @@ import style from "./Header.module.css"
 import logo from "../../assets/img/logo.svg"
 import downIcon from "../../assets/icons/down.svg"
 
-const Header = () => {
+const Header = (props) => {
+	const { resetPage } = props
 	return (
 		<div className={style["header-component"]}>
 			<div className={style["left-header"]}>
-				<div className={style["logo"]}>
+				<div className={style["logo"]} onClick={resetPage}>
 					<img
 						src={logo}
 						alt="logg"
