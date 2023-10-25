@@ -1,122 +1,175 @@
-import React, { useEffect } from "react"
+import React, { useRef, useEffect } from 'react';
+import './style.css';
 
-const CarousalGame = () => {
-	useEffect(() => {
-		setupGame()
-	}, [])
+class SpinnerAnimation {
+	constructor({ container, list }) {
+		this.tickSound = new Audio("https://freesound.org/data/previews/269/269026_5094889-lq.mp3");
+		this.tickSound.playbackRate = 4;
 
-	const setupGame = () => {
-		const items = {
-			simple: {
-				skin: "M4A1-S | Cyrex",
-				img: "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/default_generated/weapon_m4a1_silencer_cu_m4a1s_cyrex_light_large.144b4053eb73b4a47f8128ebb0e808d8e28f5b9c.png",
-			},
-			middle: {
-				skin: "M4A1-S | Chantico's Fire",
-				img: "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhz2v_Nfz5H_uO1gb-Gw_alIITCmX5d_MR6j_v--YXygED6_UZrMTzwJYSdJlU8N1zY81TrxO_v0MW9uJnBm3Rk7nEk5XfUmEeyhQYMMLIUhCYx0A",
-			},
-			super: {
-				skin: "M4A4 | Asiimov",
-				img: "https://steamcdn-a.akamaihd.net/apps/730/icons/econ/default_generated/weapon_m4a1_cu_m4_asimov_light_large.af03179f3d43ff55b0c3d114c537eac77abdb6cf.png",
-			},
-		}
+		this.winSound = new Audio("https://freesound.org/data/previews/511/511484_6890478-lq.mp3");
 
-		const generateDynamicItems = () => {
-			const dynamicItems = []
+		this.reset();
 
-			for (let i = 0; i < 101; i++) {
-				let element = (
-					<div
-						key={`CardNumber${i}`}
-						className="item class_red_item"
-						style={{ backgroundImage: `url(${items.simple.img})` }}></div>
-				)
-
-				let randed = randomInt(1, 1000)
-
-				if (randed < 50) {
-					element = (
-						<div
-							key={`CardNumber${i}`}
-							className="item class_red_item"
-							style={{ backgroundImage: `url(${items.super.img})` }}></div>
-					)
-				} else if (randed > 500) {
-					element = (
-						<div
-							key={`CardNumber${i}`}
-							className="item class_red_item"
-							style={{ backgroundImage: `url(${items.middle.img})` }}></div>
-					)
-				}
-
-				dynamicItems.push(element)
-			}
-
-			return dynamicItems
-		}
-
-		const randomInt = (min, max) => {
-			return Math.floor(Math.random() * (max - min)) + min
-		}
-
-		// Event listener for the "go" button
-		const goButton = document.getElementById("goButton")
-		goButton.addEventListener("click", () => {
-			const randed2 = 2 // Set randed2 to 2 for the "middle" skin
-			generate(randed2)
-		})
-
-		// Event listener for the "reset" button
-		const resetButton = document.getElementById("resetButton")
-		resetButton.addEventListener("click", () => {
-			window.location = ""
-		})
-
-		// Call generateDynamicItems and append the items to the container
-		const container = document.querySelector(".raffle-roller-container")
-		container.style.transition = "sdf"
-		container.style.marginLeft = "0px"
-		container.innerHTML = ""
-
-		const randed2 = 2
-
-		const dynamicItems = generateDynamicItems()
-		container.append(...dynamicItems)
-
-		const generate = (randed2) => {
-			// Your generate function code here
-		}
+		this.spinnerContainer = document.getElementById(container);
+		this.spinnerList = this.spinnerContainer.children.namedItem(list);
+		this.spinnerMarker = this.spinnerContainer.children.namedItem("spinnerMarker");
+		this.spinnerItems = this.spinnerList.children;
+		this.spinnerWon = document.getElementById("spinnerWon");
 	}
 
-	return (
-		<div>
-			<div className="raffle-roller">
-				<div className="raffle-roller-holder">
-					<div
-						className="raffle-roller-container"
-						style={{ marginLeft: "0px" }}>
-						{/* Dynamic items will be rendered here */}
-					</div>
-				</div>
-			</div>
-			<center>
-				<span style={{ fontSize: "25px" }}>
-					Your winning is{" "}
-					<span
-						style={{ color: "green" }}
-						id="rolled">
-						rolling
-					</span>
-				</span>
-				<br />
-				<button id="goButton">go</button>
-				<button id="resetButton">reset</button>
-			</center>
-			<br />
-			<div className="inventory"></div>
-		</div>
-	)
+	reset() {
+		this.started = false;
+		this.stopped = false;
+		this.stopAnimation = false;
+		this.lowerSpeed = 0;
+		this.ticks = 0;
+		this.offSet = 0;
+		this.recycle = false;
+		this.tick = false;
+		this.state = null;
+		this.speed = 0;
+		this.winningItem = 0;
+		this.firstRound = false;
+	}
+
+	start(speed = 1200) {
+		this.started = true;
+		this.speed = speed;
+		console.log(this.speed);
+		this.loop();
+	}
+
+	loop() {
+		let dt = 0;
+		let last = 0;
+
+
+		const loop = (ms) => {
+			if (this.recycle) {
+				this.recycle = false;
+				const item = this.spinnerList.firstElementChild;
+				this.spinnerList.append(item);
+			}
+
+			if (this.tick) {
+				this.tick = false;
+				this.tickSound.play();
+			}
+
+			this.offSet += this.speed * dt;
+
+			const ct = ms / 1000;
+			dt = ct - last;
+			last = ct;
+
+
+			this.spinnerList.style.right = this.offSet + "px";
+
+			if (this.offSet >= 122) {
+				this.recycle = true;
+				this.offSet = 0;
+				this.tick = true;
+				this.ticks += 1;
+				if (this.ticks >= 20 && Math.random() * 10 >= 5) {
+					this.stop();
+				}
+			}
+
+			if (this.stopped) {
+				let stopped = false;
+				if (!stopped) this.speed -= this.lowerSpeed;
+
+				if (this.speed <= 0) {
+					stopped = true;
+					this.speed = 0;
+				}
+
+				if (stopped) {
+					if (this.offSet >= 58.6) {
+						this.offSet += 6;
+					} else {
+						this.offSet -= 6;
+					}
+
+					if (this.offSet >= 122 || this.offSet <= 0) {
+						this.stopAnimation = true;
+
+						this.winSound.play();
+
+						if (this.offSet >= 122) {
+							this.winningItem = 5;
+							this.spinnerItems.item(5).classList.add("win");
+							this.spinnerWon.innerText += this.spinnerItems.item(5).innerText;
+							this.offSet = 122;
+						}
+
+						if (this.offSet <= 0) {
+							this.winningItem = 4;
+							this.spinnerItems.item(4).classList.add("win");
+							this.spinnerWon.innerText += this.spinnerItems.item(4).innerText;
+							this.offSet = 0;
+						}
+					}
+				}
+			}
+
+			if (!this.stopAnimation) {
+				requestAnimationFrame(loop);
+			}
+		};
+
+
+		requestAnimationFrame(loop);
+	}
+
+	stop() {
+		this.stopped = true;
+
+
+		this.lowerSpeed = Math.ceil(Math.random() * 10) + 1;
+	}
 }
 
-export default CarousalGame
+const CarousalGame = () => {
+	const startSpinnerBtn = useRef(null);
+
+	useEffect(() => {
+		const animation = new SpinnerAnimation({
+			container: "spinnerContainer",
+			list: "spinnerList"
+		});
+
+		startSpinnerBtn.current.addEventListener("click", (e) => {
+			if (animation.started === "ready") {
+				return;
+			}
+
+			if (!animation.firstRound) animation.spinnerItems.item(animation.winningItem).classList.remove("win");
+			animation.reset();
+			animation.start();
+		});
+	}, []);
+
+	return (
+		<div className="container">
+			<div className="spinner" id="spinnerContainer">
+				<ul className="spinner-items" id="spinnerList">
+					<li className="spinner-items__item" id="8">🐶</li>
+					<li className="spinner-items__item" id="9">🐷</li>
+					<li className="spinner-items__item" id="1">🐸</li>
+					<li className="spinner-items__item" id="2">🐹</li>
+					<li className="spinner-items__item" id="3">🐵</li>
+					<li className="spinner-items__item" id="4">🐰</li>
+					<li className="spinner-items__item" id="5">🐭</li>
+					<li className="spinner-items__item" id="6">🐮</li>
+					<li className="spinner-items__item" id="7">🐨</li>
+				</ul>
+				<div className="spinner__marker" id="spinnerMarker"> </div>
+			</div>
+			<div className="spinner__won" id="spinnerWon"></div>
+			<button className="button" id="startSpinner" ref={startSpinnerBtn}>Spin Emoji!</button>
+		</div>
+	);
+};
+
+export default CarousalGame;

@@ -11,12 +11,17 @@ const LootBox = (props) => {
 					className={style["go-back"]}
 					id="goBack"
 					onClick={goBack}>
-					Back
-				</div>
-				<div className={style["garanteed"]}>
 					<img
-						width="48"
-						height="48"
+						width="30"
+						height="30"
+						src="https://img.icons8.com/ios-filled/50/838383/back.png"
+						alt="verified-account--v1"
+					/> BACK
+				</div>
+				<div className={style["garanteed-text"]}>
+					<img
+						width="30"
+						height="30"
 						src="https://img.icons8.com/color/48/verified-account--v1.png"
 						alt="verified-account--v1"
 					/>
@@ -31,12 +36,23 @@ const LootBox = (props) => {
 					/>
 				</div>
 				<div className={style["box-spins"]}>
-					<div className={style["box-name"]}>Test your luck</div>
+					<div className={style["text-container"]}>
+						<div className={style["box-name"]}>Galaxy box</div>
+						<div className={style["about-box"]}>Hypeloot's instant classic for those just looking to start on our site, we introduce you to the Cheap Starter box! Now at an ridiculous discount of 55%! Perhaps as ridiculous as not going for a chance to win a Nintendo Switch for only 0,77$. Between this and all the other gaming-related items here, there really is nothing left to consider. </div>
+					</div>
 					<div className={style["open-box-options"]}>
-						<input
-							type="button"
-							value={"OPEN FOR 5.29"}
-						/>
+
+						<button className={style.btn} type="button">
+							<strong>OPEN FOR 5.29</strong>
+							<div className={style.containerStars}>
+								<div className={style.stars}></div>
+							</div>
+
+							<div className={style.glow}>
+								<div className={style.circle}></div>
+								<div className={style.circle}></div>
+							</div>
+						</button>
 					</div>
 				</div>
 			</div>
