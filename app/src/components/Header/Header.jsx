@@ -8,7 +8,9 @@ const Header = (props) => {
 	return (
 		<div className={style["header-component"]}>
 			<div className={style["left-header"]}>
-				<div className={style["logo"]} onClick={resetPage}>
+				<div
+					className={style["logo"]}
+					onClick={resetPage}>
 					<img
 						src={logo}
 						alt="logg"
