@@ -31,7 +31,7 @@ function App() {
       )}
       {viewPage === 'boxRoom' && (
         <div className='box-room-view' id='boxRoom'>
-          <CaseSection goBack={resetPage} />
+          <CaseSection goBack={resetPage} targetBox={targetBox} />
         </div>
       )}
     </div>
