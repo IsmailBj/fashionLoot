@@ -47,7 +47,7 @@ const CardsLFilter = () => {
 					New
 				</li>
 				<span className={style["search-bar"]}>
-					<div className="icon">
+					<div className={style.icon}>
 						{" "}
 						<img
 							src={searchIcon}
