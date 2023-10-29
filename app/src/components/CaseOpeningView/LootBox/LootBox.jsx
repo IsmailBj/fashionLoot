@@ -1,6 +1,7 @@
 import React from "react"
 import style from "./style.module.css"
 import image from "../../../assets/img/cardsImages/purbleCard.webp"
+import { startTheSpin } from "../CarouselGame/CarousalGame"
 
 const LootBox = (props) => {
 	const { goBack } = props
@@ -27,6 +28,7 @@ const LootBox = (props) => {
 					/>
 					FAIRNESS GUARANTEED
 				</div>
+				<div className="muteBtn">Mute</div>
 			</div>
 			<div className={style["box-ditails"]}>
 				<div className={style["box-img"]}>
@@ -42,7 +44,7 @@ const LootBox = (props) => {
 					</div>
 					<div className={style["open-box-options"]}>
 
-						<button className={style.btn} type="button">
+						<button className={style.btn} onClick={startTheSpin} type="button">
 							<strong>OPEN FOR 5.29</strong>
 							<div className={style.containerStars}>
 								<div className={style.stars}></div>
