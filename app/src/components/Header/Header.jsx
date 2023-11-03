@@ -4,7 +4,7 @@ import logo from "../../assets/img/logo.svg"
 import downIcon from "../../assets/icons/down.svg"
 
 const Header = (props) => {
-	const { resetPage } = props
+	const { resetPage, setShowLogin } = props
 	return (
 		<div className={style["header-component"]}>
 			<div className={style["left-header"]}>
@@ -36,7 +36,11 @@ const Header = (props) => {
 					/>
 				</div>
 				<div className={style["login-register"]}>
-					<div className={style.login}>Login</div>
+					<div
+						className={style.login}
+						onClick={() => setShowLogin(true)}>
+						Login
+					</div>
 					<div className={style.register}>Register</div>
 				</div>
 			</div>

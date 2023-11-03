@@ -4,10 +4,12 @@ import Header from './components/Header/Header';
 import BannerSponsor from './components/BannerSponsors/BannerSponsor';
 import CardsContainer from './components/CardsSection/CardsContainer/CardsContainer';
 import CaseSection from './components/CaseOpeningView/CaseSection/CaseSection';
+import LoginModule from './module/loginModule';
 function App() {
 
   const [targetBox, setTargetBox] = useState({})
   const [viewPage, setViewPage] = useState('home')
+  const [showLogin, setShowLogin] = useState(false)
 
   const openCardView = (boxData) => {
     setViewPage('boxRoom')
@@ -17,12 +19,12 @@ function App() {
   const resetPage = () => {
     setViewPage('home')
     setTargetBox({})
-    console.log("reset")
   }
 
   return (
     <div className="App">
-      <Header resetPage={resetPage} />
+      {showLogin && <LoginModule setShowLogin={setShowLogin} />}
+      <Header resetPage={resetPage} setShowLogin={setShowLogin} />
       {viewPage === 'home' && (
         <div className='home'>
           <BannerSponsor />
