@@ -12,15 +12,15 @@
 }
 
 .login-form {
-	border: 1px solid #ccc;
-	padding: 20px;
-	background-color: #fff;
-	border-radius: 5px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	border: 10px solid #3c3c3c;
+    padding: 20px;
+    background-color: #282828;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .login-form h2 {
@@ -29,14 +29,15 @@
 
 .login-form label {
 	display: block;
-	margin: 10px 0;
+	margin: 35px 0;
 	font-weight: bold;
 	color: white;
 }
 
 .login-form input {
-	width: 100%;
-	padding: 10px;
+	display: flex;
+	width: 15vw;
+	height: 3vh;
 	margin-bottom: 20px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
@@ -45,7 +46,7 @@
 .login-form button {
 	width: 100%;
 	padding: 10px;
-	background-color: #007bff;
+	background-color:  #6253e1;
 	color: #fff;
 	border: none;
 	border-radius: 3px;
@@ -53,5 +54,5 @@
 }
 
 .login-form button:hover {
-	background-color: #0056b3;
+	background-color: #6b5bf5;
 }
