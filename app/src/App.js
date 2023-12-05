@@ -5,6 +5,8 @@ import BannerSponsor from './components/BannerSponsors/BannerSponsor';
 import CardsContainer from './components/CardsSection/CardsContainer/CardsContainer';
 import CaseSection from './components/CaseOpeningView/CaseSection/CaseSection';
 import LoginModule from './module/loginModule';
+import Footer from './components/Footer/FooterContainer';
+
 function App() {
 
   const [targetBox, setTargetBox] = useState({})
@@ -29,6 +31,7 @@ function App() {
         <div className='home'>
           <BannerSponsor />
           <CardsContainer openCardView={openCardView} />
+          <Footer />
         </div>
       )}
       {viewPage === 'boxRoom' && (
