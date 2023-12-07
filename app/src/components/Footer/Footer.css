@@ -2,9 +2,12 @@
     padding:40px 0;
     background-color:#2e2e2e;
     color:#aaa;
+    margin-top: 200px;
   }
   
   .footer-basic ul {
+    display: flex;
+    justify-content: center;
     padding:0;
     list-style:none;
     text-align:center;
