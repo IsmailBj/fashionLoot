@@ -57,3 +57,8 @@
     color:#4b4c4d;
     margin-bottom:0;
   }
+
+  .footer-basic .social a .icon-img {
+    width: 24px; 
+    height: 40px; 
+  }
