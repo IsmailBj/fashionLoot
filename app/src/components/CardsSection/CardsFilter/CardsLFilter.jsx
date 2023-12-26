@@ -5,19 +5,20 @@ import newIcon from "../../../assets/icons/new.svg"
 import premiumIcon from "../../../assets/icons/premium.svg"
 import searchIcon from "../../../assets/icons/search-icon.svg"
 
-const CardsLFilter = () => {
+const CardsLFilter = ({ filter }) => {
 	const [selectedItem, setSelectedItem] = useState(null)
 
 	const handleItemClick = (index) => {
 		setSelectedItem(index)
+		filter(index)
 	}
 
 	return (
 		<span className={style["filter-container"]}>
 			<ul className={style.filter}>
 				<li
-					className={`${selectedItem === 0 ? `${style.selected} ` : ""}`}
-					onClick={() => handleItemClick(0)}>
+					className={`${selectedItem === 'HOT' ? `${style.selected} ` : ""}`}
+					onClick={() => handleItemClick('HOT')}>
 					<img
 						src={hotIcon}
 						alt=""
@@ -27,8 +28,8 @@ const CardsLFilter = () => {
 				</li>
 
 				<li
-					className={`${selectedItem === 2 ? `${style.selected} ` : ""}`}
-					onClick={() => handleItemClick(2)}>
+					className={`${selectedItem === 'PREMIUM' ? `${style.selected} ` : ""}`}
+					onClick={() => handleItemClick('PREMIUM')}>
 					<img
 						src={premiumIcon}
 						alt=""
@@ -37,8 +38,8 @@ const CardsLFilter = () => {
 					Premium
 				</li>
 				<li
-					className={`${selectedItem === 1 ? `${style.selected} ` : ""}`}
-					onClick={() => handleItemClick(1)}>
+					className={`${selectedItem === 'NEW' ? `${style.selected} ` : ""}`}
+					onClick={() => handleItemClick('NEW')}>
 					<img
 						src={newIcon}
 						alt=""
