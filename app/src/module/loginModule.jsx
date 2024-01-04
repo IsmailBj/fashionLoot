@@ -1,58 +1,53 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import style from "./style.module.css"
 
 const LoginModule = (props) => {
 	const { setShowLogin } = props
 
-	const [username, setUsername] = useState("")
-	const [password, setPassword] = useState("")
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	const [loginData, setLoginData] = useState({
+		username: '',
+		password: ''
+	})
+	const loginFormRef = useRef()
+
+	const handleClick = (event) => {
+		if (loginFormRef.current && loginFormRef.current.contains(event.target)) {
+			return;
+		}
+		setShowLogin(false);
+	};
 
 	const handleLogin = () => {
-		if (username === "user" && password === "password") {
-			setIsLoggedIn(true)
-		} else {
-			alert("Login failed. Please check your credentials.")
-		}
+		console.log('send request', loginData)
 	}
 
-	const handleLogout = () => {
-		setIsLoggedIn(false)
-		setUsername("")
-		setPassword("")
-	}
 
 	return (
 		<div
 			className={style["login-container"]}
-			onClick={() => setShowLogin(false)}>
-			{isLoggedIn ? (
-				<div>
-					<p>Welcome, {username}!</p>
-					<button onClick={handleLogout}>Logout</button>
-				</div>
-			) : (
-				<div className={style["login-form"]}>
-					<h2>Login</h2>
-					<label>
-						Username:
-						<input
-							type="text"
-							value={username}
-							onChange={(e) => setUsername(e.target.value)}
-						/>
-					</label>
-					<label>
-						Password:
-						<input
-							type="password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-						/>
-					</label>
-					<button onClick={handleLogin}>Login</button>
-				</div>
-			)}
+			onClick={handleClick}
+		>
+			<div className={style["login-form"]} ref={loginFormRef}>
+				<h2>Login</h2>
+				<label>
+					Username:
+					<input
+						type="text"
+						value={loginData.username}
+						onChange={(e) => setLoginData({ ...loginData, username: e.target.value })}
+					/>
+				</label>
+				<label>
+					Password:
+					<input
+						type="password"
+						value={loginData.password}
+						onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+					/>
+				</label>
+				<button onClick={handleLogin}>Login</button>
+			</div>
+
 		</div>
 	)
 }

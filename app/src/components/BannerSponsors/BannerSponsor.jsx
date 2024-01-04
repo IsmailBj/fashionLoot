@@ -80,6 +80,7 @@ const BannerSponsor = () => {
 				<video
 					playsInline
 					autoPlay
+					muted
 					loop
 					width="360"
 					height="360">

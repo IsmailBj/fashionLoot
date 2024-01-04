@@ -1,0 +1,9 @@
+.dropdown {
+	position: absolute;
+	top: 100px;
+}
+.lang-list {
+	display: flex;
+	padding: 20px 10px;
+	flex-direction: column;
+}
