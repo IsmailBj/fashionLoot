@@ -1,9 +1,27 @@
 .dropdown {
 	position: absolute;
-	top: 100px;
+	top: 40px;
+	right: 78px;
+	background: #2e2e2e;
+
+	border-radius: 0px 0px 8px 8px;
+	z-index: 1;
 }
 .lang-list {
 	display: flex;
 	padding: 20px 10px;
 	flex-direction: column;
+}
+
+.dropdown::before {
+	content: "";
+	position: absolute;
+	top: -10px;
+	right: 48px;
+	display: block;
+	width: 0;
+	height: 0;
+	border-right: 6px solid transparent;
+	border-bottom: 5px solid #fff;
+	border-left: 6px solid transparent;
 }

@@ -8,7 +8,7 @@ const LangDrowDown = props => {
         <div className={Style.dropdown}>
             <div className={Style["lang-list"]}>
                 {langData.map((lang, index) => (
-                    <span key={index} className={`${Style.lang} ${lang.short}`}>
+                    <span key={index} className={`${lang.short}`}>
                         {lang.language}
                     </span>
                 ))}
