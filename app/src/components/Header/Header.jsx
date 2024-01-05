@@ -4,7 +4,13 @@ import logo from "../../assets/img/logo.svg"
 import downIcon from "../../assets/icons/down.svg"
 
 const Header = (props) => {
-	const { resetPage, setShowLogin, setLangSetting, langSetting } = props
+	const {
+		resetPage,
+		setShowLogin,
+		setLangSetting,
+		langSetting,
+		setShowRegister,
+	} = props
 	return (
 		<div className={style["header-component"]}>
 			<div className={style["left-header"]}>
@@ -27,16 +33,23 @@ const Header = (props) => {
 				</div>
 			</div>
 			<div className={style["right-header"]}>
-
 				<div className={style["login-register"]}>
 					<div
 						className={style.login}
 						onClick={() => setShowLogin(true)}>
 						Login
 					</div>
-					<div className={style.register}>Register</div>
+					<div
+						className={style.register}
+						onClick={() => setShowRegister(true)}>
+						Register
+					</div>
 				</div>
-				<div className={style.language} onClick={() => setLangSetting({ ...langSetting, show: !langSetting.show })}>
+				<div
+					className={style.language}
+					onClick={() =>
+						setLangSetting({ ...langSetting, show: !langSetting.show })
+					}>
 					{langSetting.short + " "}
 					<img
 						src={downIcon}

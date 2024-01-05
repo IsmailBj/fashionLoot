@@ -1,0 +1,44 @@
+.register-container-blur {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.6);
+	backdrop-filter: blur(10px);
+	z-index: 3;
+}
+
+.register-container {
+	border: 10px solid #3c3c3c;
+	padding: 20px;
+	background-color: #282828;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 25rem;
+	flex-direction: column;
+	display: flex;
+}
+
+.submitBtn {
+	transition-duration: 0.3s;
+	transition-property: color, background-color, border-color,
+		text-decoration-color, fill, stroke;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	text-transform: uppercase;
+	font-weight: 600;
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	padding: 1.125rem;
+	background-color: #58b60f;
+	border-width: 2px;
+	border-radius: 0.5rem;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
