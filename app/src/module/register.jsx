@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import styles from "./registerStyle.module.css"
+import { sendUserDataToServer } from "../data/getApiData"
 
-const RegisterModule = () => {
+const RegisterModule = ({ show }) => {
 	const [registerData, setRegisterData] = useState({
 		username: "",
 		email: "",
@@ -10,6 +11,7 @@ const RegisterModule = () => {
 		gender: "",
 		termsAccepted: false,
 	})
+	const RegisterFormRef = useRef()
 
 	const handleChange = (e) => {
 		const { id, value, type, checked } = e.target
@@ -19,17 +21,25 @@ const RegisterModule = () => {
 		}))
 	}
 
+	const handleBackgroundClick = event => {
+		if (RegisterFormRef.current && RegisterFormRef.current.contains(event.target)) {
+			return
+		}
+		show(false)
+	}
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		console.log("Form data submitted:", registerData)
+		sendUserDataToServer(registerData, 'register')
 	}
 
 	return (
-		<div className={styles["register-container-blur"]}>
+		<div className={styles["register-container-blur"]} onClick={handleBackgroundClick}>
 			<form
+				ref={RegisterFormRef}
 				className={styles["register-container"]}
 				onSubmit={handleSubmit}>
-				<div className="close">X</div>
+				<div className="close" onClick={() => show(false)}>X</div>
 				<div className="tittle">Register</div>
 				<label>
 					Username:

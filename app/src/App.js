@@ -34,7 +34,7 @@ function App() {
   return (
     <div className="App">
       {langSetting.show && <LangDrowDown setLangSetting={setLangSetting} />}
-      {showLogin && <LoginModule setShowLogin={setShowLogin} />}
+      {showLogin && <LoginModule show={setShowLogin} />}
       {showRegister && <RegisterModule show={setShowRegister} />}
       <Header resetPage={resetPage} setShowLogin={setShowLogin} setShowRegister={setShowRegister} setLangSetting={setLangSetting} langSetting={langSetting} />
       {viewPage === 'home' && (

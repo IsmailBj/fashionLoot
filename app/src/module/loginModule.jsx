@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react"
 import style from "./loginStyle.module.css"
+import { sendUserDataToServer } from "../data/getApiData"
 
 const LoginModule = (props) => {
-	const { setShowLogin } = props
+	const { show } = props
 
 	const [loginData, setLoginData] = useState({
 		username: "",
@@ -14,11 +15,16 @@ const LoginModule = (props) => {
 		if (loginFormRef.current && loginFormRef.current.contains(event.target)) {
 			return
 		}
-		setShowLogin(false)
+		show(false)
 	}
 
 	const handleLogin = () => {
-		console.log("send request", loginData)
+		const data = {
+			email: "adsad.br@gmail.com",
+			password: "123123"
+		}
+		// TODO fix here check username or email
+		sendUserDataToServer(data, 'login')
 	}
 
 	return (
