@@ -3,13 +3,14 @@ import style from "./loginStyle.module.css"
 import { sendUserDataToServer } from "../data/getApiData"
 
 const LoginModule = (props) => {
-	const { show } = props
+	const { show, setUserData } = props
+	const loginFormRef = useRef()
 
 	const [loginData, setLoginData] = useState({
-		username: "",
+		email: "",
 		password: "",
 	})
-	const loginFormRef = useRef()
+	const [error, setError] = useState({ status: false, message: "" })
 
 	const handleClick = (event) => {
 		if (loginFormRef.current && loginFormRef.current.contains(event.target)) {
@@ -18,13 +19,10 @@ const LoginModule = (props) => {
 		show(false)
 	}
 
-	const handleLogin = () => {
-		const data = {
-			email: "adsad.br@gmail.com",
-			password: "123123"
-		}
-		// TODO fix here check username or email
-		sendUserDataToServer(data, 'login')
+	const handleLogin = async () => {
+		const data = await sendUserDataToServer(loginData, "login")
+		console.log(data)
+		data.success ? setUserData(data) : setError({ ...data })
 	}
 
 	return (
@@ -36,12 +34,12 @@ const LoginModule = (props) => {
 				ref={loginFormRef}>
 				<h2>Login</h2>
 				<label>
-					Username:
+					email:
 					<input
 						type="text"
-						value={loginData.username}
+						value={loginData.email}
 						onChange={(e) =>
-							setLoginData({ ...loginData, username: e.target.value })
+							setLoginData({ ...loginData, email: e.target.value })
 						}
 					/>
 				</label>
@@ -55,6 +53,7 @@ const LoginModule = (props) => {
 						}
 					/>
 				</label>
+				{!error.success && <span className={style.error}>{error.message}</span>}
 				<button onClick={handleLogin}>Login</button>
 			</div>
 		</div>

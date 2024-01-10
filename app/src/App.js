@@ -20,6 +20,12 @@ function App() {
     langSelected: 'English',
     short: 'en'
   })
+  const [userData, setUserData] = useState({
+    email: '',
+    username: '',
+    currency: null,
+    isLogin: false
+  })
 
   const openCardView = (boxData) => {
     setViewPage('boxRoom')
@@ -34,7 +40,7 @@ function App() {
   return (
     <div className="App">
       {langSetting.show && <LangDrowDown setLangSetting={setLangSetting} />}
-      {showLogin && <LoginModule show={setShowLogin} />}
+      {showLogin && <LoginModule show={setShowLogin} setUserData={setUserData} />}
       {showRegister && <RegisterModule show={setShowRegister} />}
       <Header resetPage={resetPage} setShowLogin={setShowLogin} setShowRegister={setShowRegister} setLangSetting={setLangSetting} langSetting={langSetting} />
       {viewPage === 'home' && (

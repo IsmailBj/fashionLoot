@@ -13,11 +13,13 @@ export const sendUserDataToServer = async (dataToSend, Route) => {
             },
             body: JSON.stringify(dataToSend),
         });
+        const responseData = await response.json();
 
         if (!response.ok) {
+            console.log('responseData fail', responseData)
             throw new Error('Error sending data to the server');
         }
-        const responseData = await response.json();
+        console.log('responseData', responseData)
         return responseData
     } catch (error) {
         console.error('Error:', error.message);
