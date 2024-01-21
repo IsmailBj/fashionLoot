@@ -12,8 +12,12 @@ const CardsContainer = (props) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getAllBoxes();
-            setProductData(data)
+            try {
+                const data = await getAllBoxes();
+                setProductData(data);
+            } catch (error) {
+                console.error('Error fetching data:', error.message);
+            }
         };
 
         fetchData();

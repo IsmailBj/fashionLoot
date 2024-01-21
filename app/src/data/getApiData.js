@@ -1,28 +1,30 @@
+import axios from 'axios';
+
 export const getAllBoxes = async () => {
-    const data = await (await fetch("http://localhost:3000/api/boxes/all")).json();
-    return data;
+    try {
+        const response = await axios.get("http://localhost:3000/api/boxes/all");
+        return response.data;
+    } catch (error) {
+        console.error('Error:', error.message);
+        return error;
+    }
 };
 
 export const sendUserDataToServer = async (dataToSend, Route) => {
-    console.log(dataToSend, Route)
     try {
-        const response = await fetch(`http://localhost:3000/api/user/${Route}`, {
-            method: 'POST',
+        const response = await axios.post(`http://localhost:3000/api/user/${Route}`, dataToSend, {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(dataToSend),
         });
-        const responseData = await response.json();
 
-        if (!response.ok) {
-            console.log('responseData fail', responseData)
+        if (!response.data.success) {
             throw new Error('Error sending data to the server');
         }
-        console.log('responseData', responseData)
-        return responseData
+
+        return response.data;
     } catch (error) {
         console.error('Error:', error.message);
-        return error
+        return { success: false, message: error.message };
     }
 };

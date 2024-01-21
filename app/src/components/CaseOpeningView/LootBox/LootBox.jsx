@@ -4,7 +4,8 @@ import image from "../../../assets/img/cardsImages/purbleCard.webp"
 import { startTheSpin } from "../CarouselGame/CarousalGame"
 
 const LootBox = (props) => {
-	const { goBack } = props
+	const { goBack, targetBox } = props
+	console.log(targetBox)
 	return (
 		<div className={style["box-container"]}>
 			<div className={style["back-guaranteed"]}>

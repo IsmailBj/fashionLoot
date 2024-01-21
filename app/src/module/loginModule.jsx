@@ -8,7 +8,7 @@ const LoginModule = (props) => {
 
 	const [loginData, setLoginData] = useState({
 		email: "",
-		password: "",
+		pass: "",
 	})
 	const [error, setError] = useState({ status: false, message: "" })
 
@@ -21,8 +21,8 @@ const LoginModule = (props) => {
 
 	const handleLogin = async () => {
 		const data = await sendUserDataToServer(loginData, "login")
-		console.log(data)
 		data.success ? setUserData(data) : setError({ ...data })
+		console.log(data)
 	}
 
 	return (
@@ -47,9 +47,9 @@ const LoginModule = (props) => {
 					Password:
 					<input
 						type="password"
-						value={loginData.password}
+						value={loginData.pass}
 						onChange={(e) =>
-							setLoginData({ ...loginData, password: e.target.value })
+							setLoginData({ ...loginData, pass: e.target.value })
 						}
 					/>
 				</label>
