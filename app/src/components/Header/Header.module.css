@@ -58,6 +58,8 @@
 	display: flex;
 	width: 200px;
 	justify-content: space-evenly;
+	height: 100%;
+	align-items: center;
 }
 
 .login-register {
@@ -74,5 +76,15 @@
 }
 
 .register {
+	cursor: pointer;
+}
+
+.user-avatar {
+	display: inline-flex;
+	gap: 15px;
+	align-items: center;
+	padding: 10px;
+	background-color: #1119;
+	border-radius: 10px;
 	cursor: pointer;
 }

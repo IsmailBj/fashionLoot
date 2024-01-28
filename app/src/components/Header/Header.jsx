@@ -1,6 +1,7 @@
 import React from "react"
 import style from "./Header.module.css"
 import logo from "../../assets/img/logo.svg"
+import avatar from "../../assets/img/avatars/avatar.svg"
 import downIcon from "../../assets/icons/down.svg"
 
 const Header = (props) => {
@@ -10,6 +11,8 @@ const Header = (props) => {
 		setLangSetting,
 		langSetting,
 		setShowRegister,
+		isUserLogin,
+		openProfile
 	} = props
 	return (
 		<div className={style["header-component"]}>
@@ -33,18 +36,30 @@ const Header = (props) => {
 				</div>
 			</div>
 			<div className={style["right-header"]}>
-				<div className={style["login-register"]}>
-					<div
-						className={style.login}
-						onClick={() => setShowLogin(true)}>
-						Login
+				{isUserLogin ? (
+					<div className={style['user-avatar']} onClick={openProfile}>
+						<div className="username">
+							Test Name
+						</div>
+						<div className="avatar">
+							<img src={avatar} width={30} alt="" />
+						</div>
 					</div>
-					<div
-						className={style.register}
-						onClick={() => setShowRegister(true)}>
-						Register
+				) :
+					<div className={style["login-register"]}>
+						<div
+							className={style.login}
+							onClick={() => setShowLogin(true)}>
+							Login
+						</div>
+						<div
+							className={style.register}
+							onClick={() => setShowRegister(true)}>
+							Register
+						</div>
 					</div>
-				</div>
+
+				}
 				<div
 					className={style.language}
 					onClick={() =>

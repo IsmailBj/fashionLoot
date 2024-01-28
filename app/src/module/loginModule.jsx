@@ -1,9 +1,10 @@
 import React, { useState, useRef } from "react"
 import style from "./loginStyle.module.css"
 import { sendUserDataToServer } from "../data/getApiData"
+import { setToken } from "../utils/auth"
 
 const LoginModule = (props) => {
-	const { show, setUserData } = props
+	const { show, setIsUserLogin } = props
 	const loginFormRef = useRef()
 
 	const [loginData, setLoginData] = useState({
@@ -20,10 +21,22 @@ const LoginModule = (props) => {
 	}
 
 	const handleLogin = async () => {
-		const data = await sendUserDataToServer(loginData, "login")
-		data.success ? setUserData(data) : setError({ ...data })
-		console.log(data)
+		const response = await sendUserDataToServer(loginData, "login")
+		if (response.success) {
+			setToken(response.token)
+			setIsUserLogin(true)
+			setError({ status: false })
+			show(false)
+		} else {
+			setError({ status: true, message: response.message })
+		}
 	}
+
+	const handleKeyPress = (event) => {
+		if (event.key === "Enter") {
+			handleLogin();
+		}
+	};
 
 	return (
 		<div
@@ -41,6 +54,7 @@ const LoginModule = (props) => {
 						onChange={(e) =>
 							setLoginData({ ...loginData, email: e.target.value })
 						}
+						onKeyDown={handleKeyPress}
 					/>
 				</label>
 				<label>
@@ -51,6 +65,7 @@ const LoginModule = (props) => {
 						onChange={(e) =>
 							setLoginData({ ...loginData, pass: e.target.value })
 						}
+						onKeyDown={handleKeyPress}
 					/>
 				</label>
 				{!error.success && <span className={style.error}>{error.message}</span>}

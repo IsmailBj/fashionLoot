@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header/Header';
 import BannerSponsor from './components/BannerSponsors/BannerSponsor';
 import CardsContainer from './components/CardsSection/CardsContainer/CardsContainer';
@@ -8,23 +8,20 @@ import LoginModule from './module/loginModule';
 import RegisterModule from './module/register';
 import Footer from './components/Footer/FooterContainer';
 import LangDrowDown from './components/Header/Lang/LangDropDown'
+import { isTokenExpired, logout, getToken } from './utils/auth';
+import Profile from './components/UserProfile/Profile';
 
 function App() {
 
   const [targetBox, setTargetBox] = useState({})
   const [viewPage, setViewPage] = useState('home')
   const [showLogin, setShowLogin] = useState(false)
+  const [isUserLogin, setIsUserLogin] = useState(false)
   const [showRegister, setShowRegister] = useState(false)
   const [langSetting, setLangSetting] = useState({
     show: false,
     langSelected: 'English',
     short: 'en'
-  })
-  const [userData, setUserData] = useState({
-    email: '',
-    username: '',
-    currency: null,
-    isLogin: false
   })
 
   const openCardView = (boxData) => {
@@ -37,12 +34,43 @@ function App() {
     setTargetBox({})
   }
 
+  const openProfile = () => {
+    checkAuthentication()
+    setViewPage('profile')
+  }
+
+  const checkAuthentication = () => {
+    const token = getToken()
+    if (token) {
+      if (isTokenExpired()) {
+        resetPage()
+        logout();
+      } else {
+        setIsUserLogin(true);
+      }
+    } else {
+      setIsUserLogin(false);
+    }
+  }
+
+  useEffect(() => {
+    checkAuthentication();
+  }, []);
+
   return (
     <div className="App">
       {langSetting.show && <LangDrowDown setLangSetting={setLangSetting} />}
-      {showLogin && <LoginModule show={setShowLogin} setUserData={setUserData} />}
+      {showLogin && <LoginModule show={setShowLogin} setIsUserLogin={setIsUserLogin} />}
       {showRegister && <RegisterModule show={setShowRegister} />}
-      <Header resetPage={resetPage} setShowLogin={setShowLogin} setShowRegister={setShowRegister} setLangSetting={setLangSetting} langSetting={langSetting} />
+      <Header
+        resetPage={resetPage}
+        openProfile={openProfile}
+        setShowLogin={setShowLogin}
+        isUserLogin={isUserLogin}
+        setShowRegister={setShowRegister}
+        setLangSetting={setLangSetting}
+        langSetting={langSetting}
+      />
       {viewPage === 'home' && (
         <div className='home'>
           <BannerSponsor />
@@ -55,6 +83,7 @@ function App() {
           <CaseSection goBack={resetPage} targetBox={targetBox} />
         </div>
       )}
+      {viewPage === 'profile' && <Profile />}
     </div>
   );
 }
