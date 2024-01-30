@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { getToken } from '../utils/auth';
 export const getAllBoxes = async () => {
     try {
         const response = await axios.get("http://localhost:3000/api/boxes/all");
@@ -28,3 +28,18 @@ export const sendUserDataToServer = async (dataToSend, Route) => {
         return { success: false, message: error.message };
     }
 };
+
+export const getUserData = async () => {
+    const token = getToken()
+    try {
+        const response = await axios.get('http://localhost:3000/api/user/user-data', null, {
+            headers: {
+                'authorization': token
+            }
+        })
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+
+}

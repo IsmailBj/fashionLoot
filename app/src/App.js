@@ -10,6 +10,7 @@ import Footer from './components/Footer/FooterContainer';
 import LangDrowDown from './components/Header/Lang/LangDropDown'
 import { isTokenExpired, logout, getToken } from './utils/auth';
 import Profile from './components/UserProfile/Profile';
+import { getUserData } from './data/getApiData';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
     langSelected: 'English',
     short: 'en'
   })
+  const [userProfile, setUserProfile] = useState({})
 
   const openCardView = (boxData) => {
     setViewPage('boxRoom')
@@ -39,7 +41,7 @@ function App() {
     setViewPage('profile')
   }
 
-  const checkAuthentication = () => {
+  const checkAuthentication = async () => {
     const token = getToken()
     if (token) {
       if (isTokenExpired()) {
@@ -47,6 +49,9 @@ function App() {
         logout();
       } else {
         setIsUserLogin(true);
+        let resData = await getUserData()
+        setUserProfile({ ...resData })
+        console.log(userProfile)
       }
     } else {
       setIsUserLogin(false);

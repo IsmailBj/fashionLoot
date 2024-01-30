@@ -26,6 +26,5 @@ export const isTokenExpired = () => {
 
 export const logout = () => {
     removeToken();
-    console.log('logout')
     window.location.reload()
 };
