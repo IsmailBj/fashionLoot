@@ -53,3 +53,24 @@ li img {
   transform: translateY(10px);
   padding-left: 10px;
 }
+
+@media only screen and (max-width: 767px) {
+  .filter-container {
+    font-size: 0.8rem;
+  }
+  li {
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+  }
+  li > img {
+    position: unset;
+    margin-right: 5px;
+  }
+  .search-bar {
+    width: 95px;
+  }
+  .search-bar > input {
+    width: 45px;
+  }
+}

@@ -7,3 +7,9 @@
     width: 100%;
     flex-wrap: wrap;
 }
+
+@media only screen and (max-width: 767px) {
+    .cards-container {
+        width: 100%;
+    }
+}

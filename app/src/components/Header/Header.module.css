@@ -88,3 +88,13 @@
 	border-radius: 10px;
 	cursor: pointer;
 }
+
+@media only screen and (max-width: 767px) {
+	.right-header, .menu-list {
+		display: none;
+	}
+	.logo > img {
+		display: flex;
+		width: 134px;
+	}
+}
