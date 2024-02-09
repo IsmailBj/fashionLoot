@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { getToken } from '../utils/auth';
 export const getAllBoxes = async () => {
+    console.log(process.env.NODE_ENV)
     try {
-        const response = await axios.get("http://localhost:3000/api/boxes/all");
+        const response = await axios.get("https://lootboxbn.onrender.com/api/boxes/all");
         return response.data;
     } catch (error) {
         console.error('Error:', error.message);
@@ -12,7 +13,7 @@ export const getAllBoxes = async () => {
 
 export const sendUserDataToServer = async (dataToSend, Route) => {
     try {
-        const response = await axios.post(`http://localhost:3000/api/user/${Route}`, dataToSend, {
+        const response = await axios.post(`https://lootboxbn.onrender.com/api/user/${Route}`, dataToSend, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -34,12 +35,11 @@ export const getUserData = async () => {
     let data = { isValid: false, response: {} }
     if (!data) {
         try {
-            const response = await axios.post('http://localhost:3000/api/user/user-data', null, {
+            const response = await axios.post('https://lootboxbn.onrender.com/api/user/user-data', null, {
                 headers: {
                     'authorization': `Bearer ${token}`
                 }
             })
-            console.log("call api")
             data.isValid = true
             data.response = { ...response.data.user }
             return response;
