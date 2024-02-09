@@ -18,7 +18,6 @@ function App() {
   const [targetBox, setTargetBox] = useState({})
   const [viewPage, setViewPage] = useState('home')
   const [showLogin, setShowLogin] = useState(false)
-  const [isUserLogin, setIsUserLogin] = useState(false)
   const [showRegister, setShowRegister] = useState(false)
   const [showDeposit, setShowDeposit] = useState(false)
   const [langSetting, setLangSetting] = useState({
@@ -26,7 +25,7 @@ function App() {
     langSelected: 'English',
     short: 'en'
   })
-  const [userProfile, setUserProfile] = useState({})
+  const [userProfile, setUserProfile] = useState({ isUserLogin: false })
 
   const openCardView = (boxData) => {
     setViewPage('boxRoom')
@@ -50,13 +49,11 @@ function App() {
         resetPage()
         logout();
       } else {
-        setIsUserLogin(true);
         let resData = await getUserData()
         setUserProfile({ ...resData })
-        console.log(userProfile)
       }
     } else {
-      setIsUserLogin(false);
+      setUserProfile({ isUserLogin: false });
     }
   }
 
@@ -67,14 +64,14 @@ function App() {
   return (
     <div className="App">
       {langSetting.show && <LangDrowDown setLangSetting={setLangSetting} />}
-      {showLogin && <LoginModule show={setShowLogin} setIsUserLogin={setIsUserLogin} />}
+      {showLogin && <LoginModule show={setShowLogin} setUserProfile={setUserProfile} userProfile={userProfile} />}
       {showRegister && <RegisterModule show={setShowRegister} />}
       {showDeposit && <Deposit/>}
       <Header
         resetPage={resetPage}
         openProfile={openProfile}
         setShowLogin={setShowLogin}
-        isUserLogin={isUserLogin}
+        isUserLogin={userProfile.isUserLogin}
         setShowRegister={setShowRegister}
         setLangSetting={setLangSetting}
         langSetting={langSetting}

@@ -31,15 +31,24 @@ export const sendUserDataToServer = async (dataToSend, Route) => {
 
 export const getUserData = async () => {
     const token = getToken()
-    try {
-        const response = await axios.get('http://localhost:3000/api/user/user-data', null, {
-            headers: {
-                'authorization': token
-            }
-        })
-        return response;
-    } catch (error) {
-        console.log(error)
+    let data = { isValid: false, response: {} }
+    if (!data) {
+        try {
+            const response = await axios.post('http://localhost:3000/api/user/user-data', null, {
+                headers: {
+                    'authorization': `Bearer ${token}`
+                }
+            })
+            console.log("call api")
+            data.isValid = true
+            data.response = { ...response.data.user }
+            return response;
+        } catch (error) {
+            console.log(error)
+        }
+    } else {
+        console.log("call saved")
+        return data.response
     }
-
+    console.log(data)
 }

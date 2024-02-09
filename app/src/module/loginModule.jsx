@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react"
 import style from "./loginStyle.module.css"
-import { sendUserDataToServer } from "../data/getApiData"
+import { sendUserDataToServer, getUserData } from "../data/getApiData"
 import { setToken } from "../utils/auth"
 
 const LoginModule = (props) => {
-	const { show, setIsUserLogin } = props
+	const { show, setUserProfile } = props
 	const loginFormRef = useRef()
 
 	const [loginData, setLoginData] = useState({
@@ -24,7 +24,6 @@ const LoginModule = (props) => {
 		const response = await sendUserDataToServer(loginData, "login")
 		if (response.success) {
 			setToken(response.token)
-			setIsUserLogin(true)
 			setError({ status: false })
 			show(false)
 		} else {
