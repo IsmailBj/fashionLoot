@@ -13,7 +13,9 @@ import brand10 from "../../assets/img/brands/10.png"
 import brand11 from "../../assets/img/brands/11.png"
 import brand12 from "../../assets/img/brands/12.png"
 
-const BannerSponsor = () => {
+const BannerSponsor = (props) => {
+
+	const {setShowDeposit} = props
 	return (
 		<div className={style["banner-container"]}>
 			<div className={style["text-info"]}>
@@ -24,7 +26,7 @@ const BannerSponsor = () => {
 					Open our provably fair mystery boxes and have your unboxed products
 					shipped to your doorstep
 				</div>
-				<div className={style["deposit-btn"]}>DEPOSIT</div>
+				<div className={style["deposit-btn"]} onClick={()=> setShowDeposit(true)}>DEPOSIT</div>
 			</div>
 			<div className={style["sponsors-icons"]}>
 				<img

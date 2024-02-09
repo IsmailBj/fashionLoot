@@ -11,6 +11,7 @@ import LangDrowDown from './components/Header/Lang/LangDropDown'
 import { isTokenExpired, logout, getToken } from './utils/auth';
 import Profile from './components/UserProfile/Profile';
 import { getUserData } from './data/getApiData';
+import Deposit from './components/Deposit/Deposit'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
   const [showLogin, setShowLogin] = useState(false)
   const [isUserLogin, setIsUserLogin] = useState(false)
   const [showRegister, setShowRegister] = useState(false)
+  const [showDeposit, setShowDeposit] = useState(false)
   const [langSetting, setLangSetting] = useState({
     show: false,
     langSelected: 'English',
@@ -67,6 +69,7 @@ function App() {
       {langSetting.show && <LangDrowDown setLangSetting={setLangSetting} />}
       {showLogin && <LoginModule show={setShowLogin} setIsUserLogin={setIsUserLogin} />}
       {showRegister && <RegisterModule show={setShowRegister} />}
+      {showDeposit && <Deposit/>}
       <Header
         resetPage={resetPage}
         openProfile={openProfile}
@@ -78,7 +81,7 @@ function App() {
       />
       {viewPage === 'home' && (
         <div className='home'>
-          <BannerSponsor />
+          <BannerSponsor setShowDeposit={setShowDeposit} />
           <CardsContainer openCardView={openCardView} />
           <Footer />
         </div>
