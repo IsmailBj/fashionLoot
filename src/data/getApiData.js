@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { getToken } from '../utils/auth';
+
+const devMode = true;
+
 export const getAllBoxes = async () => {
-    console.log(process.env.NODE_ENV)
+    const url = devMode ? "http://localhost:3000/api/boxes/all" : "https://lootboxbn.onrender.com/api/boxes/all"
     try {
-        const response = await axios.get("https://lootboxbn.onrender.com/api/boxes/all");
+        const response = await axios.get(url)
         return response.data;
     } catch (error) {
         console.error('Error:', error.message);
@@ -12,8 +15,9 @@ export const getAllBoxes = async () => {
 };
 
 export const sendUserDataToServer = async (dataToSend, Route) => {
+    const url = devMode ? `http://localhost:3000/api/user/${Route}` : `https://lootboxbn.onrender.com/api/user/${Route}`
     try {
-        const response = await axios.post(`https://lootboxbn.onrender.com/api/user/${Route}`, dataToSend, {
+        const response = await axios.post(url, dataToSend, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -31,11 +35,12 @@ export const sendUserDataToServer = async (dataToSend, Route) => {
 };
 
 export const getUserData = async () => {
+    const url = devMode ? `http://localhost:3000/api/user/user-data` : `https://lootboxbn.onrender.com/api/user/user-data`
     const token = getToken()
     let data = { isValid: false, response: {} }
     if (!data) {
         try {
-            const response = await axios.post('https://lootboxbn.onrender.com/api/user/user-data', null, {
+            const response = await axios.post(url, null, {
                 headers: {
                     'authorization': `Bearer ${token}`
                 }
