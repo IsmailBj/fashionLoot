@@ -1,52 +1,114 @@
-import React, { useState } from 'react';
-import './style.css';
-import { SpinnerAnimation } from '../../../animations/SpinnerAnimation';
+import React, { useState } from "react"
+import "./style.css"
 
-
-export const startTheSpin = () => {
-	const animation = new SpinnerAnimation({
-		container: "spinnerContainer",
-		list: "spinnerList"
-	});
-
-	if (animation.started === "ready") {
-		return;
-	}
-
-	if (!animation.firstRound) animation.spinnerItems.item(animation.winningItem).classList.remove("win");
-	animation.reset();
-	animation.start();
-
-}
+const items = [
+	{
+		name: "mouse",
+		img: "./img/mouse.jpg",
+	},
+	{
+		name: "pc",
+		img: "./img/pc.jpg",
+	},
+	{
+		name: "card",
+		img: "./img/card.jpg",
+	},
+	{
+		name: "mobile",
+		img: "./img/mobile.jpg",
+	},
+	{
+		name: "watch",
+		img: "./img/watch.jpg",
+	},
+]
 
 const CarousalGame = () => {
+	const [spin, setSpin] = useState(false)
 
-	const [isMuted, setIsMuted] = useState(false);
+	const boxWidth = 100
+	const boxLength = 50
+	const winBox = 45
+	const itemW = 4
 
-	const handleMuteToggle = () => {
-		setIsMuted(!isMuted);
-	};
-	return (
-		<div className="container">
-			<div className="muteSound" onClick={handleMuteToggle}>
-				{isMuted ? (<span>muted</span>) : (<span>unmuted</span>)}
+	const spinHandler = () => {
+		setSpin(true)
+	}
+
+	const fill = () => {
+		const elements = []
+		for (let i = 1; i <= boxLength; i++) {
+			if (i === winBox) {
+				elements.push(createElement(items[itemW], true))
+			} else {
+				const randomN = getRandomInt(items.length)
+				elements.push(createElement(items[randomN]))
+			}
+		}
+		return elements
+	}
+
+	const getRandomInt = (max) => {
+		return Math.floor(Math.random() * max)
+	}
+
+	const createElement = (item, winner = false) => {
+		return (
+			<div style={{ maxWidth: boxWidth + "px" }}>
+				<img
+					src={item.img}
+					style={{
+						width: boxWidth + "px",
+						border: winner ? "2px solid green" : "2px solid red",
+					}}
+					alt={item.name}
+				/>
 			</div>
-			<div className="spinner" id="spinnerContainer">
-				<ul className="spinner-items" id="spinnerList">
-					<li className="spinner-items__item" id="8">🐶</li>
-					<li className="spinner-items__item" id="9">🐷</li>
-					<li className="spinner-items__item" id="1">🐸</li>
-					<li className="spinner-items__item" id="2">🐹</li>
-					<li className="spinner-items__item" id="3">🐵</li>
-					<li className="spinner-items__item" id="4">🐰</li>
-					<li className="spinner-items__item" id="5">🐭</li>
-					<li className="spinner-items__item" id="6">🐮</li>
-					<li className="spinner-items__item" id="7">🐨</li>
-				</ul>
-				<div className="spinner__marker" id="spinnerMarker"></div>
+		)
+	}
+
+	return (
+		<div>
+			<div
+				style={{
+					maxWidth: "500px",
+					height: "100px",
+					overflow: "hidden",
+					background: "#333",
+					margin: "0 auto",
+					position: "relative",
+				}}>
+				<div
+					style={{
+						backgroundColor: "#2fcf72",
+						width: "5px",
+						height: "100%",
+						position: "absolute",
+						left: "50%",
+						transform: "translateX(-50%)",
+						zIndex: "2",
+					}}></div>
+				<div
+					id="body"
+					style={{
+						width: "100%",
+						height: "100%",
+						display: "flex",
+						position: "absolute",
+						left: spin ? winBox * boxWidth - boxWidth / 2 - 250 + "px" : "0",
+						transition: "all 3s ease-in-out",
+					}}>
+					{fill()}
+				</div>
+			</div>
+			<div
+				className="button"
+				onClick={spinHandler}>
+				Spin to Win
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default CarousalGame;
+export default CarousalGame
