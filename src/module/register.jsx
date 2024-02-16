@@ -28,9 +28,11 @@ const RegisterModule = ({ show }) => {
 		show(false)
 	}
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
-		sendUserDataToServer(registerData, 'register')
+		const data = await sendUserDataToServer(registerData, 'register')
+		console.log(data)
+		data.success && show(false)
 	}
 
 	return (
