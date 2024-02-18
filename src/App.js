@@ -38,7 +38,6 @@ function App() {
   }
 
   const openProfile = () => {
-    checkAuthentication()
     setViewPage('profile')
   }
 
@@ -49,12 +48,14 @@ function App() {
         resetPage()
         logout();
       } else {
-        let resData = await getUserData()
+        // let resData = await getUserData() 
+        console.log(resData)
         setUserProfile({ ...resData })
       }
     } else {
       setUserProfile({ isUserLogin: false });
     }
+    console.log(userProfile)
   }
 
   useEffect(() => {
@@ -66,7 +67,7 @@ function App() {
       {langSetting.show && <LangDrowDown setLangSetting={setLangSetting} />}
       {showLogin && <LoginModule show={setShowLogin} setUserProfile={setUserProfile} userProfile={userProfile} />}
       {showRegister && <RegisterModule show={setShowRegister} />}
-      {showDeposit && <Deposit/>}
+      {showDeposit && <Deposit />}
       <Header
         resetPage={resetPage}
         openProfile={openProfile}
