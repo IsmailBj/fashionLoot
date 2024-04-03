@@ -12,7 +12,8 @@ const Header = (props) => {
 		langSetting,
 		setShowRegister,
 		isUserLogin,
-		openProfile
+		openProfile,
+		username
 	} = props
 	return (
 		<div className={style["header-component"]}>
@@ -39,7 +40,7 @@ const Header = (props) => {
 				{isUserLogin ? (
 					<div className={style['user-avatar']} onClick={openProfile}>
 						<div className="username">
-							Test Name
+							{username}
 						</div>
 						<div className="avatar">
 							<img src={avatar} width={30} alt="" />

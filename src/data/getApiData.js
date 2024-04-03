@@ -54,7 +54,7 @@ export const requestLoginUser = async (dataToSend) => {
             },
         });
         const data = response.data
-
+        console.log(data)
         if (!data.success) {
             throw new Error('Wrong Email or Password');
         }
@@ -66,6 +66,22 @@ export const requestLoginUser = async (dataToSend) => {
     }
 };
 
+export const getUserData = async () => {
+    const token = getToken()
+    let data = {};
+    const url = devMode ? `http://localhost:3000/api/user/user-data` : `https://lootboxbn.onrender.com/api/user/user-data`
+    const headers = {
+        'Authorization': `Bearer ${token}`
+    };
+
+    try {
+        const response = await axios.get(url, { headers });
+        data = response.data.user
+    } catch (error) {
+        console.log(error)
+    }
+    return data
+}
 
 
 // const response = await axios.post(url, null, {

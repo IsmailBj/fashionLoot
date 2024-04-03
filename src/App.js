@@ -48,14 +48,13 @@ function App() {
         resetPage()
         logout();
       } else {
-        // let resData = await getUserData() 
+        let resData = await getUserData()
         console.log(resData)
         setUserProfile({ ...resData })
       }
     } else {
       setUserProfile({ isUserLogin: false });
     }
-    console.log(userProfile)
   }
 
   useEffect(() => {
@@ -73,6 +72,7 @@ function App() {
         openProfile={openProfile}
         setShowLogin={setShowLogin}
         isUserLogin={userProfile.isUserLogin}
+        username={userProfile.username}
         setShowRegister={setShowRegister}
         setLangSetting={setLangSetting}
         langSetting={langSetting}
@@ -89,7 +89,7 @@ function App() {
           <CaseSection goBack={resetPage} targetBox={targetBox} />
         </div>
       )}
-      {viewPage === 'profile' && <Profile />}
+      {viewPage === 'profile' && <Profile userProfile={userProfile} />}
     </div>
   );
 }

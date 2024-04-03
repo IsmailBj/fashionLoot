@@ -1,25 +1,30 @@
+import style from "./ProfileStyle.module.css";
 import React from "react";
 import avatar from "../../assets/img/avatars/avatar.svg"
 import { logout } from "../../utils/auth";
+import CardCurrency from "./currency/currencyCards";
 
-const Profile = () => {
-
+const Profile = ({ userProfile }) => {
+    const { username, wallet } = userProfile
     return (
-        <div className="Profile-component">
-            <div className="menu-section">
-                <div className="avatar-profile">
-                    <img src={avatar} alt="no avatar" />
-                    <div className="name">Test UserName</div>
+        <div className={style['Profile-component']}>
+            <div className={style['menu-section']}>
+                <div className={style["avatar-profile"]}>
+                    <img className={style['avatar-img']} src={avatar} alt="no avatar" />
+                    <div className={style.name}>{username}</div>
                 </div>
-                <div className="menu">
-                    <div className="balance">Balance</div>
-                    <div className="address">Address</div>
-                    <div className="storage">Storage</div>
-                    <div className="logout" onClick={logout}>Logout</div>
+                <div className="user-currency">
+                    <CardCurrency wallet={wallet} />
+                </div>
+                <div className={style.menu}>
+                    <div className={`${style.btn}`}>Deposit</div>
+                    <div className={`${style.btn}`}>Address</div>
+                    <div className={`${style.btn}`}>Storage</div>
+                    <div className={`${style.btn}`}>User Info</div>
+                    <div className={`${style.btn}`} onClick={logout}>Logout</div>
                 </div>
             </div>
-            <div className="profile-view">
-
+            <div className={style['profile-view']}>
             </div>
 
         </div>
