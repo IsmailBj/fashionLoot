@@ -72,7 +72,7 @@ const CarousalGame = () => {
 		<div>
 			<div
 				style={{
-					maxWidth: "500px",
+					maxWidth: "900px",
 					height: "100px",
 					overflow: "hidden",
 					background: "#333",

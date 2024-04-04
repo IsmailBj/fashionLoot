@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react"
 import styles from "./registerStyle.module.css"
-import { sendUserDataToServer } from "../data/getApiData"
+import { requestRegisterUser } from "../data/getApiData"
 
 const RegisterModule = ({ show }) => {
 	const [registerData, setRegisterData] = useState({
@@ -28,9 +28,11 @@ const RegisterModule = ({ show }) => {
 		show(false)
 	}
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
-		sendUserDataToServer(registerData, 'register')
+		const data = await requestRegisterUser(registerData)
+		console.log(data)
+		data.success && show(false)
 	}
 
 	return (

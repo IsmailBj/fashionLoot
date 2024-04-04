@@ -38,7 +38,6 @@ function App() {
   }
 
   const openProfile = () => {
-    checkAuthentication()
     setViewPage('profile')
   }
 
@@ -50,6 +49,7 @@ function App() {
         logout();
       } else {
         let resData = await getUserData()
+        console.log(resData)
         setUserProfile({ ...resData })
       }
     } else {
@@ -66,12 +66,13 @@ function App() {
       {langSetting.show && <LangDrowDown setLangSetting={setLangSetting} />}
       {showLogin && <LoginModule show={setShowLogin} setUserProfile={setUserProfile} userProfile={userProfile} />}
       {showRegister && <RegisterModule show={setShowRegister} />}
-      {showDeposit && <Deposit/>}
+      {showDeposit && <Deposit />}
       <Header
         resetPage={resetPage}
         openProfile={openProfile}
         setShowLogin={setShowLogin}
         isUserLogin={userProfile.isUserLogin}
+        username={userProfile.username}
         setShowRegister={setShowRegister}
         setLangSetting={setLangSetting}
         langSetting={langSetting}
@@ -88,7 +89,7 @@ function App() {
           <CaseSection goBack={resetPage} targetBox={targetBox} />
         </div>
       )}
-      {viewPage === 'profile' && <Profile />}
+      {viewPage === 'profile' && <Profile userProfile={userProfile} />}
     </div>
   );
 }
