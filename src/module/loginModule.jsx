@@ -1,10 +1,9 @@
 import React, { useState, useRef } from "react"
 import style from "./loginStyle.module.css"
-import { sendUserDataToServer, getUserData } from "../data/getApiData"
-import { setToken } from "../utils/auth"
+import { requestLoginUser } from "../data/getApiData"
 
 const LoginModule = (props) => {
-	const { show, setUserProfile } = props
+	const { show } = props
 	const loginFormRef = useRef()
 
 	const [loginData, setLoginData] = useState({
@@ -21,9 +20,8 @@ const LoginModule = (props) => {
 	}
 
 	const handleLogin = async () => {
-		const response = await sendUserDataToServer(loginData, "login")
+		const response = await requestLoginUser(loginData)
 		if (response.success) {
-			setToken(response.token)
 			setError({ status: false })
 			show(false)
 		} else {
@@ -46,7 +44,7 @@ const LoginModule = (props) => {
 				ref={loginFormRef}>
 				<h2>Login</h2>
 				<label>
-					Email:
+					email:
 					<input
 						type="text"
 						value={loginData.email}
