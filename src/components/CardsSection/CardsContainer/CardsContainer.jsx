@@ -7,7 +7,7 @@ import Card from "../Card/Card";
 
 const CardsContainer = (props) => {
 
-    const [productData, setProductData] = useState([])
+    const [productData, setProductData] = useState({})
     const [filterTag, setFilterTag] = useState('all')
 
     useEffect(() => {
@@ -19,7 +19,6 @@ const CardsContainer = (props) => {
                 console.error('Error fetching data:', error.message);
             }
         };
-
         fetchData();
     }, []);
 

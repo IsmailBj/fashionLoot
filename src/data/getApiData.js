@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getToken, setToken } from '../utils/auth';
 
-const devMode = false;
+const devMode = true;
 
 export const getAllBoxes = async () => {
     const url = devMode ? "http://localhost:3000/api/boxes/all" : "https://lootboxbn.onrender.com/api/boxes/all"
@@ -54,7 +54,7 @@ export const requestLoginUser = async (dataToSend) => {
             },
         });
         const data = response.data
-        console.log(data)
+
         if (!data.success) {
             throw new Error('Wrong Email or Password');
         }

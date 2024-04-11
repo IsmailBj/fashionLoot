@@ -1,7 +1,6 @@
 import style from "./style.module.css"
 import image from "../../../assets/img/cardsImages/purbleCard.webp"
-const Card = props => {
-    const { card, onClick } = props
+const Card = ({ card, onClick }) => {
     return (
         <div className={style['card-container']} onClick={onClick}>
             <div className={style['card']} key={card.id}>

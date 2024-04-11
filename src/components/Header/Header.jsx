@@ -13,7 +13,8 @@ const Header = (props) => {
 		setShowRegister,
 		isUserLogin,
 		openProfile,
-		username
+		username,
+		currency
 	} = props
 	return (
 		<div className={style["header-component"]}>
@@ -39,6 +40,7 @@ const Header = (props) => {
 			<div className={style["right-header"]}>
 				{isUserLogin ? (
 					<div className={style['user-avatar']} onClick={openProfile}>
+						<div className="amount">{currency.amount}</div>
 						<div className="username">
 							{username}
 						</div>

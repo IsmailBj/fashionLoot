@@ -49,7 +49,6 @@ function App() {
         logout();
       } else {
         let resData = await getUserData()
-        console.log(resData)
         setUserProfile({ ...resData })
       }
     } else {
@@ -64,7 +63,7 @@ function App() {
   return (
     <div className="App">
       {langSetting.show && <LangDrowDown setLangSetting={setLangSetting} />}
-      {showLogin && <LoginModule show={setShowLogin} setUserProfile={setUserProfile} userProfile={userProfile} />}
+      {showLogin && <LoginModule show={setShowLogin} />}
       {showRegister && <RegisterModule show={setShowRegister} />}
       {showDeposit && <Deposit />}
       <Header
@@ -73,6 +72,7 @@ function App() {
         setShowLogin={setShowLogin}
         isUserLogin={userProfile.isUserLogin}
         username={userProfile.username}
+        currency={userProfile.wallet}
         setShowRegister={setShowRegister}
         setLangSetting={setLangSetting}
         langSetting={langSetting}
@@ -86,7 +86,7 @@ function App() {
       )}
       {viewPage === 'boxRoom' && (
         <div className='box-room-view' id='boxRoom'>
-          <CaseSection goBack={resetPage} targetBox={targetBox} />
+          <CaseSection goBack={resetPage} targetBox={targetBox} setShowLogin={setShowLogin} userProfile={userProfile} />
         </div>
       )}
       {viewPage === 'profile' && <Profile userProfile={userProfile} />}

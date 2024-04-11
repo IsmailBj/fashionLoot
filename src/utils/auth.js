@@ -24,7 +24,9 @@ export const isTokenExpired = () => {
     return false;
 };
 
+export const reload = () => window.location.reload()
+
 export const logout = () => {
     removeToken();
-    window.location.reload()
+    reload()
 };

@@ -24,17 +24,13 @@ const items = [
 	},
 ]
 
-const CarousalGame = () => {
-	const [spin, setSpin] = useState(false)
+const CarousalGame = ({ spin }) => {
+
 
 	const boxWidth = 100
 	const boxLength = 50
 	const winBox = 45
 	const itemW = 4
-
-	const spinHandler = () => {
-		setSpin(true)
-	}
 
 	const fill = () => {
 		const elements = []
@@ -101,11 +97,6 @@ const CarousalGame = () => {
 					}}>
 					{fill()}
 				</div>
-			</div>
-			<div
-				className="button"
-				onClick={spinHandler}>
-				Spin to Win
 			</div>
 		</div>
 	)

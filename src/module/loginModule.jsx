@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react"
 import style from "./loginStyle.module.css"
 import { requestLoginUser } from "../data/getApiData"
+import { reload } from "../utils/auth"
 
 const LoginModule = (props) => {
 	const { show } = props
@@ -24,6 +25,7 @@ const LoginModule = (props) => {
 		if (response.success) {
 			setError({ status: false })
 			show(false)
+			reload()
 		} else {
 			setError({ status: true, message: response.message })
 		}

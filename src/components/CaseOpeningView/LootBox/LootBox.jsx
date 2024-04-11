@@ -3,8 +3,7 @@ import style from "./style.module.css"
 import image from "../../../assets/img/cardsImages/purbleCard.webp"
 // import { startTheSpin } from "../CarouselGame/CarousalGame"
 
-const LootBox = (props) => {
-	const { goBack } = props
+const LootBox = ({ goBack, spinHandler, targetBox }) => {
 
 	return (
 		<div className={style["box-container"]}>
@@ -41,21 +40,16 @@ const LootBox = (props) => {
 				</div>
 				<div className={style["box-spins"]}>
 					<div className={style["text-container"]}>
-						<div className={style["box-name"]}>Galaxy box</div>
-						<div className={style["about-box"]}>
-							Hypeloot's instant classic for those just looking to start on our
-							site, we introduce you to the Cheap Starter box! Now at an
-							ridiculous discount of 55%! Perhaps as ridiculous as not going for
-							a chance to win a Nintendo Switch for only 0,77$. Between this and
-							all the other gaming-related items here, there really is nothing
-							left to consider.{" "}
+						<div className={style["box-name"]}>{targetBox.name}</div>
+						<div className={style["about-box"]}>{targetBox.about}
 						</div>
 					</div>
 					<div className={style["open-box-options"]}>
 						<button
 							className={style.btn}
+							onClick={spinHandler}
 							type="button">
-							<strong>OPEN FOR 5.29</strong>
+							<strong>OPEN FOR {targetBox.price}</strong>
 							<div className={style.containerStars}>
 								<div className={style.stars}></div>
 							</div>

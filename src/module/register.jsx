@@ -31,12 +31,11 @@ const RegisterModule = ({ show }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await requestRegisterUser(registerData);
-    console.log(data);
     data.success && show(false);
-	if (!registerData.username || !registerData.email || !registerData.password || !registerData.repPassword || !registerData.gender || !registerData.termsAccepted) {
-		alert("Please fill in all the fields.");
-		return;
-	  }
+    if (!registerData.username || !registerData.email || !registerData.password || !registerData.repPassword || !registerData.gender || !registerData.termsAccepted) {
+      alert("Please fill in all the fields.");
+      return;
+    }
   };
 
   return (
