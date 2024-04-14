@@ -6,7 +6,7 @@ import downIcon from "../../assets/icons/down.svg"
 
 const Header = (props) => {
 	const {
-		resetPage,
+		viewHome,
 		setShowLogin,
 		setLangSetting,
 		langSetting,
@@ -14,14 +14,15 @@ const Header = (props) => {
 		isUserLogin,
 		openProfile,
 		username,
-		currency
+		currency,
+		openDeposit
 	} = props
 	return (
 		<div className={style["header-component"]}>
 			<div className={style["left-header"]}>
 				<div
 					className={style["logo"]}
-					onClick={resetPage}>
+					onClick={viewHome}>
 					<img
 						src={logo}
 						alt="logg"
@@ -34,7 +35,7 @@ const Header = (props) => {
 					<div className={style["link-direct"]}>BOX</div>
 					<div className={style["link-direct"]}>meni2</div>
 					<div className={style["link-direct"]}>meni4</div>
-					<div className={style["link-direct"]}>meni2</div>
+					<div className={style["link-direct"]} onClick={openDeposit}>Deposit</div>
 				</div>
 			</div>
 			<div className={style["right-header"]}>

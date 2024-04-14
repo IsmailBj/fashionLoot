@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getToken, setToken } from '../utils/auth';
+import { getToken, setToken, reload } from '../utils/auth';
 
 const devMode = true;
 
@@ -82,6 +82,29 @@ export const getUserData = async () => {
     }
     return data
 }
+
+
+export const depositPoints = async amount => {
+    const token = getToken();
+    const devMode = true;
+    const apiUrl = devMode ? `http://localhost:3000/api/user/buy-coints` : `https://lootboxbn.onrender.com/api/user/buy-coints`;
+    const headers = {
+        'Authorization': `Bearer ${token}`
+    };
+
+    try {
+        const response = await axios.post(apiUrl, { amount }, { headers })
+        console.log(response.data)
+        if (response.data.status === 'completed') {
+            reload()
+        } else {
+            console.log('error transaction')
+        }
+    } catch (error) {
+        throw error
+    }
+};
+
 
 
 // const response = await axios.post(url, null, {

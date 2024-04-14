@@ -19,7 +19,6 @@ function App() {
   const [viewPage, setViewPage] = useState('home')
   const [showLogin, setShowLogin] = useState(false)
   const [showRegister, setShowRegister] = useState(false)
-  const [showDeposit, setShowDeposit] = useState(false)
   const [langSetting, setLangSetting] = useState({
     show: false,
     langSelected: 'English',
@@ -32,9 +31,16 @@ function App() {
     setTargetBox(boxData)
   }
 
-  const resetPage = () => {
+  const viewHome = () => {
     setViewPage('home')
     setTargetBox({})
+  }
+
+  const openDeposit = () => {
+    if (userProfile.isUserLogin)
+      setViewPage('deposit')
+    else
+      setShowLogin(true)
   }
 
   const openProfile = () => {
@@ -45,7 +51,7 @@ function App() {
     const token = getToken()
     if (token) {
       if (isTokenExpired()) {
-        resetPage()
+        viewHome()
         logout();
       } else {
         let resData = await getUserData()
@@ -65,9 +71,8 @@ function App() {
       {langSetting.show && <LangDrowDown setLangSetting={setLangSetting} />}
       {showLogin && <LoginModule show={setShowLogin} />}
       {showRegister && <RegisterModule show={setShowRegister} />}
-      {showDeposit && <Deposit />}
       <Header
-        resetPage={resetPage}
+        viewHome={viewHome}
         openProfile={openProfile}
         setShowLogin={setShowLogin}
         isUserLogin={userProfile.isUserLogin}
@@ -76,19 +81,21 @@ function App() {
         setShowRegister={setShowRegister}
         setLangSetting={setLangSetting}
         langSetting={langSetting}
+        openDeposit={openDeposit}
       />
       {viewPage === 'home' && (
         <div className='home'>
-          <BannerSponsor setShowDeposit={setShowDeposit} />
+          <BannerSponsor openDeposit={openDeposit} />
           <CardsContainer openCardView={openCardView} />
           <Footer />
         </div>
       )}
       {viewPage === 'boxRoom' && (
         <div className='box-room-view' id='boxRoom'>
-          <CaseSection goBack={resetPage} targetBox={targetBox} setShowLogin={setShowLogin} userProfile={userProfile} />
+          <CaseSection goBack={viewHome} targetBox={targetBox} setShowLogin={setShowLogin} userProfile={userProfile} />
         </div>
       )}
+      {viewPage === 'deposit' && <Deposit goBack={viewHome} />}
       {viewPage === 'profile' && <Profile userProfile={userProfile} />}
     </div>
   );
