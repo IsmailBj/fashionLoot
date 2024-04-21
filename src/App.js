@@ -96,7 +96,7 @@ function App() {
         </div>
       )}
       {viewPage === 'deposit' && <Deposit goBack={viewHome} />}
-      {viewPage === 'profile' && <Profile userProfile={userProfile} />}
+      {viewPage === 'profile' && <Profile userProfile={userProfile} openDeposit={openDeposit} />}
     </div>
   );
 }

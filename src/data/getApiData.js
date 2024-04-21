@@ -43,10 +43,7 @@ export const requestRegisterUser = async (dataToSend) => {
 
 export const requestLoginUser = async (dataToSend) => {
     const url = devMode ? `http://localhost:3000/api/user/login` : `https://lootboxbn.onrender.com/api/user/login`
-    const token = getToken()
-    if (token) {
-        // https://chat.openai.com/c/0bff9071-6e6a-4129-b36a-cd686d37de59
-    }
+
     try {
         const response = await axios.post(url, dataToSend, {
             headers: {
@@ -94,7 +91,7 @@ export const depositPoints = async amount => {
 
     try {
         const response = await axios.post(apiUrl, { amount }, { headers })
-        console.log(response.data)
+
         if (response.data.status === 'completed') {
             reload()
         } else {
@@ -106,9 +103,36 @@ export const depositPoints = async amount => {
 };
 
 
+export const getUserAddress = async () => {
+    const token = getToken();
+    const apiUrl = devMode ? `http://localhost:3000/api/user/user-address` : `https://lootboxbn.onrender.com/api/user/user-address`;
+    const headers = {
+        'Authorization': `Bearer ${token}`
+    };
 
-// const response = await axios.post(url, null, {
-//     headers: {
-//         'authorization': `Bearer ${token}`
-//     }
-// })
+    try {
+        const response = await axios.get(apiUrl, { headers })
+        return response.data
+    } catch (error) {
+        return error
+    }
+}
+
+export const setNewAddress = async (data) => {
+    const url = devMode ? `http://localhost:3000/api/user/add-address` : `https://lootboxbn.onrender.com/api/user/add-address`
+    const token = getToken();
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+    };
+
+    try {
+        const response = await axios.post(url, data, { headers });
+
+        if (!response.data.success) {
+            throw new Error('Error sending data to the server');
+        }
+
+    } catch (error) {
+        return { success: false, message: error.message };
+    }
+}

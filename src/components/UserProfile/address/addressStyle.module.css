@@ -1,0 +1,42 @@
+.table-container {
+	margin: 20px;
+}
+.header .title {
+	margin-bottom: 10px;
+	font-size: 20px;
+	line-height: 30px;
+}
+
+.btn.add-address {
+	color: rgb(232, 230, 227);
+	background-color: rgb(161, 0, 0);
+	border-color: transparent;
+	border-radius: 4px;
+	padding: 0 40px;
+	height: 36px;
+	line-height: 34px;
+	font-size: 14px;
+	border-width: 1px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.address-info {
+	border-color: rgb(184, 37, 2);
+	background-color: rgb(59, 9, 0);
+	padding: 20px;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+}
+
+.edit-btn {
+	margin-top: 24px;
+}
+
+.edit-btn span {
+	margin-right: 24px;
+	cursor: pointer;
+	color: rgb(77, 178, 213);
+}

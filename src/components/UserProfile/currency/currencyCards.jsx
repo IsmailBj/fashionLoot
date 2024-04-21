@@ -1,15 +1,11 @@
 import React from "react";
-
+import style from "../ProfileStyle.module.css"
 const CardCurrency = ({ wallet }) => {
 
     return (
-        <div className="view-cards">
-            <div className="card">
-                <div>
-                    <p>Amount: {wallet.amount}</p>
-                    <p>Pending: {wallet.pending}</p>
-                </div>
-            </div>
+        <div className={style["card-balance"]}>
+            <p className="amount">Amount: {wallet.amount}</p>
+            <p className="pending">Pending: {wallet.pending}</p>
         </div>
     )
 }

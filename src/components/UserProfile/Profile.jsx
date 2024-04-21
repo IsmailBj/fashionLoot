@@ -1,11 +1,19 @@
 import style from "./ProfileStyle.module.css";
-import React from "react";
+import React, { useState } from "react";
 import avatar from "../../assets/img/avatars/avatar.svg"
 import { logout } from "../../utils/auth";
 import CardCurrency from "./currency/currencyCards";
+import UserAddress from "./address/address";
 
-const Profile = ({ userProfile }) => {
-    const { username, wallet } = userProfile
+const Profile = ({ userProfile, openDeposit }) => {
+    const { username, wallet } = userProfile;
+
+    const [currentView, setCurrentView] = useState(null);
+
+    const switchView = (target) => {
+        setCurrentView(target === currentView ? null : target);
+    };
+
     return (
         <div className={style['Profile-component']}>
             <div className={style['menu-section']}>
@@ -17,18 +25,18 @@ const Profile = ({ userProfile }) => {
                     <CardCurrency wallet={wallet} />
                 </div>
                 <div className={style.menu}>
-                    <div className={`${style.btn}`}>Deposit</div>
-                    <div className={`${style.btn}`}>Address</div>
+                    <div className={`${style.btn}`} onClick={openDeposit}>Deposit</div>
+                    <div className={`${style.btn}`} onClick={() => switchView('address')}>Address</div>
                     <div className={`${style.btn}`}>Storage</div>
                     <div className={`${style.btn}`}>User Info</div>
                     <div className={`${style.btn}`} onClick={logout}>Logout</div>
                 </div>
             </div>
             <div className={style['profile-view']}>
+                {currentView === "address" && <UserAddress />}
             </div>
-
         </div>
-    )
-}
+    );
+};
 
-export default Profile
+export default Profile;
