@@ -8,7 +8,7 @@ const items = [
 	},
 	{
 		name: "pc",
-		img: "./img/pc.jpg",
+		img: "https://www.jiomart.com/images/product/original/rvdukxjtan/entwino-d1-gaming-mouse-for-laptop-gaming-pc-usb-wired-rgb-lights-optical-mouse-for-computer-product-images-orvdukxjtan-p594705374-0-202210202205.jpg?im=Resize=(420,420)",
 	},
 	{
 		name: "card",
