@@ -47,14 +47,14 @@ function App() {
     setViewPage('profile')
   }
 
-  const checkAuthentication = async () => {
+  const checkAuthentication = () => {
     const token = getToken()
     if (token) {
       if (isTokenExpired()) {
         viewHome()
         logout();
       } else {
-        let resData = await getUserData()
+        let resData = getUserData()
         setUserProfile({ ...resData })
       }
     } else {

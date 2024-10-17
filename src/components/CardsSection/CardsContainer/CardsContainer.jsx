@@ -11,15 +11,7 @@ const CardsContainer = (props) => {
     const [filterTag, setFilterTag] = useState('all')
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getAllBoxes();
-                setProductData(data);
-            } catch (error) {
-                console.error('Error fetching data:', error.message);
-            }
-        };
-        fetchData();
+        getAllBoxes(setProductData);
     }, []);
 
     const cardsList = productData && productData.boxes

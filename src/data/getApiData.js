@@ -2,27 +2,17 @@ import axios from 'axios';
 import { getToken, setToken, reload } from '../utils/auth';
 
 const devMode = true;
+const domainTarget = devMode ? 'http://localhost:3000' : 'https://lootboxbn.onrender.com'
 
-export const getAllBoxes = async () => {
-    const url = devMode ? "http://localhost:3000/api/boxes/all" : "https://lootboxbn.onrender.com/api/boxes/all"
-    const localData = localStorage.getItem('boxes')
-    if (!localData) {
-        try {
-            const response = await axios.get(url)
-            const responseData = response.data
-            localStorage.setItem('boxes', JSON.stringify(responseData))
-            return responseData;
-        } catch (error) {
-            console.error('Error:', error.message);
-            return error;
-        }
-    } else {
-        return JSON.parse(localData)
-    }
+
+export const getAllBoxes = async (setProductData) => {
+    const url = domainTarget + "/api/boxes/all"
+    const response = await axios.get(url)
+    setProductData(response.data)
 };
 
 export const requestRegisterUser = async (dataToSend) => {
-    const url = devMode ? `http://localhost:3000/api/user/register` : `https://lootboxbn.onrender.com/api/user/register`
+    const url = domainTarget + "/api/user/register"
 
     try {
         const response = await axios.post(url, dataToSend, {
@@ -42,8 +32,7 @@ export const requestRegisterUser = async (dataToSend) => {
 }
 
 export const requestLoginUser = async (dataToSend) => {
-    const url = devMode ? `http://localhost:3000/api/user/login` : `https://lootboxbn.onrender.com/api/user/login`
-
+    const url = domainTarget + '/api/user/login'
     try {
         const response = await axios.post(url, dataToSend, {
             headers: {
@@ -66,7 +55,7 @@ export const requestLoginUser = async (dataToSend) => {
 export const getUserData = async () => {
     const token = getToken()
     let data = {};
-    const url = devMode ? `http://localhost:3000/api/user/user-data` : `https://lootboxbn.onrender.com/api/user/user-data`
+    const url = domainTarget + '/api/user/user-data'
     const headers = {
         'Authorization': `Bearer ${token}`
     };
@@ -83,8 +72,7 @@ export const getUserData = async () => {
 
 export const depositPoints = async amount => {
     const token = getToken();
-    const devMode = true;
-    const apiUrl = devMode ? `http://localhost:3000/api/user/buy-coints` : `https://lootboxbn.onrender.com/api/user/buy-coints`;
+    const apiUrl = domainTarget + '/api/user/buy-coints'
     const headers = {
         'Authorization': `Bearer ${token}`
     };
@@ -105,7 +93,7 @@ export const depositPoints = async amount => {
 
 export const getUserAddress = async () => {
     const token = getToken();
-    const apiUrl = devMode ? `http://localhost:3000/api/user/user-address` : `https://lootboxbn.onrender.com/api/user/user-address`;
+    const apiUrl = '/api/user/user-address'
     const headers = {
         'Authorization': `Bearer ${token}`
     };
@@ -119,7 +107,7 @@ export const getUserAddress = async () => {
 }
 
 export const setNewAddress = async (data) => {
-    const url = devMode ? `http://localhost:3000/api/user/add-address` : `https://lootboxbn.onrender.com/api/user/add-address`
+    const url = domainTarget + '/api/user/add-address'
     const token = getToken();
     const headers = {
         'Authorization': `Bearer ${token}`,
