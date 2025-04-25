@@ -47,14 +47,14 @@ function App() {
     setViewPage('profile')
   }
 
-  const checkAuthentication = () => {
+  const checkAuthentication = async () => {
     const token = getToken()
     if (token) {
       if (isTokenExpired()) {
         viewHome()
         logout();
       } else {
-        let resData = getUserData()
+        const resData = await getUserData();
         setUserProfile({ ...resData })
       }
     } else {
@@ -65,6 +65,36 @@ function App() {
   useEffect(() => {
     checkAuthentication();
   }, []);
+
+  const renderPageContent = () => {
+    switch (viewPage) {
+      case 'home':
+        return (
+          <div className="home">
+            <BannerSponsor openDeposit={openDeposit} />
+            <CardsContainer openCardView={openCardView} />
+            <Footer />
+          </div>
+        );
+      case 'boxRoom':
+        return (
+          <div className="box-room-view" id="boxRoom">
+            <CaseSection
+              goBack={viewHome}
+              targetBox={targetBox}
+              setShowLogin={setShowLogin}
+              userProfile={userProfile}
+            />
+          </div>
+        );
+      case 'deposit':
+        return <Deposit goBack={viewHome} />;
+      case 'profile':
+        return <Profile userProfile={userProfile} openDeposit={openDeposit} />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="App">
@@ -83,20 +113,7 @@ function App() {
         langSetting={langSetting}
         openDeposit={openDeposit}
       />
-      {viewPage === 'home' && (
-        <div className='home'>
-          <BannerSponsor openDeposit={openDeposit} />
-          <CardsContainer openCardView={openCardView} />
-          <Footer />
-        </div>
-      )}
-      {viewPage === 'boxRoom' && (
-        <div className='box-room-view' id='boxRoom'>
-          <CaseSection goBack={viewHome} targetBox={targetBox} setShowLogin={setShowLogin} userProfile={userProfile} />
-        </div>
-      )}
-      {viewPage === 'deposit' && <Deposit goBack={viewHome} />}
-      {viewPage === 'profile' && <Profile userProfile={userProfile} openDeposit={openDeposit} />}
+      {renderPageContent()}
     </div>
   );
 }

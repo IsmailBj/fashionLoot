@@ -10,10 +10,18 @@ const Footer = () => {
     <div className="footer-basic">
       <footer>
         <div className="social">
-          <a href="#"><img src={Insta} alt="" className="icon-img" /><i className="icon ion-social-instagram"></i></a>
-          <a href="#"><img src={Youtube} alt="" className="icon-img" /><i className="icon ion-social-youtube"></i></a>
-          <a href="#"><img src={Twitter} alt="" className="icon-img" /><i className="icon ion-social-twitter"></i></a>
-          <a href="#"><img src={Fb} alt="" className="icon-img" /><i className="icon ion-social-facebook"></i></a>
+          <a href="#" aria-label="Instagram">
+            <img src={Insta} alt="Instagram icon" className="icon-img" />
+          </a>
+          <a href="#" aria-label="YouTube">
+            <img src={Youtube} alt="YouTube icon" className="icon-img" />
+          </a>
+          <a href="#" aria-label="Twitter">
+            <img src={Twitter} alt="Twitter icon" className="icon-img" />
+          </a>
+          <a href="#" aria-label="Facebook">
+            <img src={Fb} alt="Facebook icon" className="icon-img" />
+          </a>
         </div>
         <ul className="list-inline">
           <li className="list-inline-item"><a href="#">Home</a></li>
@@ -22,7 +30,7 @@ const Footer = () => {
           <li className="list-inline-item"><a href="#">Terms</a></li>
           <li className="list-inline-item"><a href="#">Privacy Policy</a></li>
         </ul>
-        <p className="copyright">BOX LOOT © 2023</p>
+        <p className="copyright">BOX LOOT © 2025</p>
       </footer>
     </div>
   );

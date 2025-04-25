@@ -1,7 +1,8 @@
 import React from "react"
 import style from "./style.module.css"
 import image from "../../../assets/img/cardsImages/purbleCard.webp"
-// import { startTheSpin } from "../CarouselGame/CarousalGame"
+import backIcon from "../../../assets/icons/backIcon.png";
+import verifiedIcon from "../../../assets/icons/verified.png";
 
 const LootBox = ({ goBack, spinHandler, targetBox }) => {
 
@@ -15,8 +16,8 @@ const LootBox = ({ goBack, spinHandler, targetBox }) => {
 					<img
 						width="30"
 						height="30"
-						src="https://img.icons8.com/ios-filled/50/838383/back.png"
-						alt="verified-account--v1"
+						src={backIcon}
+						alt="back icon"
 					/>{" "}
 					BACK
 				</div>
@@ -24,8 +25,8 @@ const LootBox = ({ goBack, spinHandler, targetBox }) => {
 					<img
 						width="30"
 						height="30"
-						src="https://img.icons8.com/color/48/verified-account--v1.png"
-						alt="verified-account--v1"
+						src={verifiedIcon}
+						alt="Fairness Guaranteed"
 					/>
 					FAIRNESS GUARANTEED
 				</div>

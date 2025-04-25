@@ -17,6 +17,12 @@ const Header = (props) => {
 		currency,
 		openDeposit
 	} = props
+
+	const handleLoginClick = () => setShowLogin(true);
+	const handleRegisterClick = () => setShowRegister(true);
+	const handleLanguageToggle = () => setLangSetting({ ...langSetting, show: !langSetting.show });
+
+
 	return (
 		<div className={style["header-component"]}>
 			<div className={style["left-header"]}>
@@ -53,12 +59,12 @@ const Header = (props) => {
 					<div className={style["login-register"]}>
 						<div
 							className={style.login}
-							onClick={() => setShowLogin(true)}>
+							onClick={handleLoginClick}>
 							Login
 						</div>
 						<div
 							className={style.register}
-							onClick={() => setShowRegister(true)}>
+							onClick={handleRegisterClick}>
 							Register
 						</div>
 					</div>
@@ -66,9 +72,7 @@ const Header = (props) => {
 				}
 				<div
 					className={style.language}
-					onClick={() =>
-						setLangSetting({ ...langSetting, show: !langSetting.show })
-					}>
+					onClick={handleLanguageToggle}>
 					{langSetting.short + " "}
 					<img
 						src={downIcon}

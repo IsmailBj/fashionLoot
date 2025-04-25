@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+!Project Documentation: Loot Box System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Overview
 
-## Available Scripts
+    This project is an online loot box system inspired by CS:GO loot crate openings. It allows users to open loot boxes, deposit points, and receive random branded items based on item rarity. The system consists of a front-end user interface, a back-end server to handle requests, and an admin panel for managing loot boxes and sales.
 
-In the project directory, you can run:
+!Project Setup
 
-### `npm start`
+    • Clone
+        git clone https://github.com/your-repository/fashion-loot-frontend.git
+        cd fashion-loot-frontend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    • Install dependencies
+        npm install or npm i
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    • Run the application
+        npm run start
 
-### `npm test`
+    extra info
+        Your front-end will be live at http://localhost:3001 port 3000 will be reserved for the BackEnd part
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+!Key Features
 
-### `npm run build`
+    • Home Page: Displays a list of available loot boxes, banners, and other dynamic content.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    • Loot Box Room: Users can view and open loot boxes, where the results are displayed after a loot box is opened.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    • User Profile: Users can view and manage their profile information, including transaction history and wallet balance.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    • Deposit: Users can deposit points into their accounts to purchase loot boxes.
 
-### `npm run eject`
+    • Login/Registration: Users can register for an account or log in with their credentials to interact with the system.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+!API Interaction
+The front-end interacts with the backend through API requests using Axios. Key API interactions include:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    User Authentication: Registering and logging in users with POST requests to /api/user/register and /api/user/login.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    Loot Box Operations: Fetching available loot boxes from /api/boxes/all and triggering loot box openings with /api/user/open-box.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    User Data: Fetching user profile data with /api/user/user-data.
 
-## Learn More
+    Deposit Points: Posting points to the user’s account with /api/user/buy-coins.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+!Back-End (Node.js, Express, MongoDB)
+The backend system with the documentation can be found on this link: [Back-End (Node.js, Express, MongoDB)](https://github.com/IsmailBj/FashionLootBN)

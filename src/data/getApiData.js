@@ -1,126 +1,80 @@
 import axios from 'axios';
 import { getToken, setToken, reload } from '../utils/auth';
 
-const devMode = true;
-const domainTarget = devMode ? 'http://localhost:3000' : 'https://lootboxbn.onrender.com'
+const domainTarget = "http://localhost:3000"
+
+const buildApiUrl = (endpoint) => `${domainTarget}${endpoint}`;
+
+const handleApiResponse = async (promise) => {
+    try {
+        const response = await promise;
+        if (response.data && response.data.success !== undefined && !response.data.success) {
+            throw new Error(response.data.message || 'Unknown error occurred');
+        }
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return { success: false, message: error.message };
+    }
+};
 
 
-export const getAllBoxes = async (setProductData) => {
-    const url = domainTarget + "/api/boxes/all"
-    const response = await axios.get(url)
-    setProductData(response.data)
+export const getAllBoxes = async () => {
+    const url = buildApiUrl("/api/boxes/all");
+    return handleApiResponse(axios.get(url));
 };
 
 export const requestRegisterUser = async (dataToSend) => {
-    const url = domainTarget + "/api/user/register"
-
-    try {
-        const response = await axios.post(url, dataToSend, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.data.success) {
-            throw new Error('Error sending data to the server');
-        }
-
-        return response.data;
-    } catch (error) {
-        return { success: false, message: error.message };
-    }
+    const url = buildApiUrl("/api/user/register");
+    return handleApiResponse(axios.post(url, dataToSend, {
+        headers: { 'Content-Type': 'application/json' }
+    }));
 }
 
 export const requestLoginUser = async (dataToSend) => {
-    const url = domainTarget + '/api/user/login'
-    try {
-        const response = await axios.post(url, dataToSend, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        const data = response.data
+    const url = buildApiUrl('/api/user/login');
+    const response = await handleApiResponse(axios.post(url, dataToSend, {
+        headers: { 'Content-Type': 'application/json' }
+    }));
 
-        if (!data.success) {
-            throw new Error('Wrong Email or Password');
-        }
-        setToken(data.token)
-        return data;
-    } catch (error) {
-        console.error('Error:', error.message);
-        return { success: false, message: error.message };
+    if (response.success) {
+        setToken(response.token);
     }
+
+    return response;
 };
 
 export const getUserData = async () => {
-    const token = getToken()
-    let data = {};
-    const url = domainTarget + '/api/user/user-data'
-    const headers = {
-        'Authorization': `Bearer ${token}`
-    };
-
-    try {
-        const response = await axios.get(url, { headers });
-        data = response.data.user
-    } catch (error) {
-        console.log(error)
-    }
-    return data
+    const token = getToken();
+    const url = buildApiUrl('/api/user/user-data');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    const response = await handleApiResponse(axios.get(url, { headers }));
+    return response.user || {};
 }
-
 
 export const depositPoints = async amount => {
     const token = getToken();
-    const apiUrl = domainTarget + '/api/user/buy-coints'
-    const headers = {
-        'Authorization': `Bearer ${token}`
-    };
+    const apiUrl = buildApiUrl('/api/user/buy-coints');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    const response = await handleApiResponse(axios.post(apiUrl, { amount }, { headers }));
 
-    try {
-        const response = await axios.post(apiUrl, { amount }, { headers })
-
-        if (response.data.status === 'completed') {
-            reload()
-        } else {
-            console.log('error transaction')
-        }
-    } catch (error) {
-        throw error
+    if (response.status === 'completed') {
+        reload();
+    } else {
+        console.log('Transaction failed');
     }
 };
 
-
 export const getUserAddress = async () => {
     const token = getToken();
-    const apiUrl = '/api/user/user-address'
-    const headers = {
-        'Authorization': `Bearer ${token}`
-    };
-
-    try {
-        const response = await axios.get(apiUrl, { headers })
-        return response.data
-    } catch (error) {
-        return error
-    }
+    const apiUrl = buildApiUrl('/api/user/user-address');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return handleApiResponse(axios.get(apiUrl, { headers }));
 }
 
 export const setNewAddress = async (data) => {
-    const url = domainTarget + '/api/user/add-address'
+    const url = buildApiUrl('/api/user/add-address');
     const token = getToken();
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-    };
-
-    try {
-        const response = await axios.post(url, data, { headers });
-
-        if (!response.data.success) {
-            throw new Error('Error sending data to the server');
-        }
-
-    } catch (error) {
-        return { success: false, message: error.message };
-    }
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return handleApiResponse(axios.post(url, data, { headers }));
 }

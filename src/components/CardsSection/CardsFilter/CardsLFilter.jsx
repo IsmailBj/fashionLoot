@@ -3,51 +3,37 @@ import style from "./style.module.css"
 import hotIcon from "../../../assets/icons/hot-icon.svg"
 import newIcon from "../../../assets/icons/new.svg"
 import premiumIcon from "../../../assets/icons/premium.svg"
-import searchIcon from "../../../assets/icons/search-icon.svg"
+// import searchIcon from "../../../assets/icons/search-icon.svg"
 
 const CardsLFilter = ({ filter }) => {
-	const [selectedItem, setSelectedItem] = useState(null)
+	const [selectedFilter, setSelectedFilter] = useState(null);
 
-	const handleItemClick = (index) => {
-		setSelectedItem(index)
-		filter(index)
+	const handleFilterClick = (id) => {
+		setSelectedFilter(id)
+		filter(id)
 	}
+
+	const filterOptions = [
+		{ id: "ALL", icon: hotIcon, label: "All" },
+		{ id: "HOT", icon: hotIcon, label: "Hot" },
+		{ id: "PREMIUM", icon: premiumIcon, label: "Premium" },
+		{ id: "NEW", icon: newIcon, label: "New" },
+	];
 
 	return (
 		<span className={style["filter-container"]}>
 			<ul className={style.filter}>
-				<li
-					className={`${selectedItem === 'HOT' ? `${style.selected} ` : ""}`}
-					onClick={() => handleItemClick('HOT')}>
-					<img
-						src={hotIcon}
-						alt=""
-						height={25}
-					/>
-					Hot
-				</li>
-
-				<li
-					className={`${selectedItem === 'PREMIUM' ? `${style.selected} ` : ""}`}
-					onClick={() => handleItemClick('PREMIUM')}>
-					<img
-						src={premiumIcon}
-						alt=""
-						height={25}
-					/>
-					Premium
-				</li>
-				<li
-					className={`${selectedItem === 'NEW' ? `${style.selected} ` : ""}`}
-					onClick={() => handleItemClick('NEW')}>
-					<img
-						src={newIcon}
-						alt=""
-						height={25}
-					/>
-					New
-				</li>
-				<span className={style["search-bar"]}>
+				{filterOptions.map(({ id, icon, label }) => (
+					<li
+						key={id}
+						className={selectedFilter === id ? style.selected : ""}
+						onClick={() => handleFilterClick(id)}
+					>
+						<img src={icon} alt={`${label} icon`} height={25} />
+						{label}
+					</li>
+				))}
+				{/* <span className={style["search-bar"]}>
 					<div className={style.icon}>
 						{" "}
 						<img
@@ -61,7 +47,7 @@ const CardsLFilter = ({ filter }) => {
 						name="Search a Box"
 						id="searchBox"
 					/>
-				</span>
+				</span> */}
 			</ul>
 		</span>
 	)
