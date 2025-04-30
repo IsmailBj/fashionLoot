@@ -12,16 +12,15 @@ export const removeToken = () => {
 
 export const isTokenExpired = () => {
     const token = getToken();
-    if (!token) return true;
+    if (!token) return;
 
     const decodedToken = JSON.parse(atob(token.split('.')[1]));
     const expirationTime = decodedToken.exp * 1000;
 
     if (Date.now() >= expirationTime) {
         removeToken();
-        return true;
+        reload()
     }
-    return false;
 };
 
 export const reload = () => window.location.reload()

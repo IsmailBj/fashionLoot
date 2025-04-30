@@ -9,7 +9,7 @@ const LoginModule = (props) => {
 
 	const [loginData, setLoginData] = useState({
 		email: "",
-		pass: "",
+		password: "",
 	})
 	const [error, setError] = useState({ status: false, message: "" })
 
@@ -22,12 +22,12 @@ const LoginModule = (props) => {
 
 	const handleLogin = async () => {
 		const response = await requestLoginUser(loginData)
-		if (response.success) {
+		if (!response.error) {
 			setError({ status: false })
 			show(false)
 			reload()
 		} else {
-			setError({ status: true, message: response.message })
+			setError({ status: true, message: response.error })
 		}
 	}
 
@@ -60,9 +60,9 @@ const LoginModule = (props) => {
 					Password:
 					<input
 						type="password"
-						value={loginData.pass}
+						value={loginData.password}
 						onChange={(e) =>
-							setLoginData({ ...loginData, pass: e.target.value })
+							setLoginData({ ...loginData, password: e.target.value })
 						}
 						onKeyDown={handleKeyPress}
 					/>

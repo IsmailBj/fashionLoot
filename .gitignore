@@ -1,1 +1,25 @@
 node_modules
+# Node modules
+node_modules/
+
+# Environment variables file
+.env
+
+# Build outputs
+/dist
+/build
+/public
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE and editor files (optional)
+.idea/
+.vscode/
+
+# Temporary files
+*.swp

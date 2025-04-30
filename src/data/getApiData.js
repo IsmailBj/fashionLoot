@@ -8,13 +8,16 @@ const buildApiUrl = (endpoint) => `${domainTarget}${endpoint}`;
 const handleApiResponse = async (promise) => {
     try {
         const response = await promise;
-        if (response.data && response.data.success !== undefined && !response.data.success) {
-            throw new Error(response.data.message || 'Unknown error occurred');
+
+        if (response.data && response.data.error) {
+            throw new Error(response.data.error || 'Unknown error occurred');
         }
-        return response.data;
+
+        return response.data
+
     } catch (error) {
         console.error(error);
-        return { success: false, message: error.message };
+        return { success: false, message: error.message, statusCode: 400 };
     }
 };
 
@@ -37,7 +40,7 @@ export const requestLoginUser = async (dataToSend) => {
         headers: { 'Content-Type': 'application/json' }
     }));
 
-    if (response.success) {
+    if (!response.error) {
         setToken(response.token);
     }
 
